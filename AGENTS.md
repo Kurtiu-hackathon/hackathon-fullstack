@@ -99,3 +99,4 @@ export function DataCard({ className, title, children, ...props }: DataCardProps
 ## Escopo
 
 Faça o que foi pedido. Se identificar melhoria fora do escopo, **sugira** ao final em vez de aplicar. Não refatore, não renomeie, não "melhore" arquivos que o pedido não tocava.
+
