@@ -10,7 +10,7 @@ export function Header() {
           aria-label="SouJunior - início"
         >
           <Image
-            src="/logo-soujunior.png"
+            src="/logo-soujunior.svg"
             alt="SouJunior"
             width={275}
             height={104}
