@@ -1,6 +1,6 @@
 import { Allocation } from "./_components/allocation"
 import { Cause } from "./_components/cause"
-import { FinalCta } from "./_components/final-cta"
+import { FinalCta } from "./_components/final.cta"
 import { Footer } from "./_components/footer"
 import { Header } from "./_components/header"
 import { Hero } from "./_components/hero"
