@@ -1,36 +1,18 @@
 "use client"
 
-import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Blueprint } from "@/components/ui/blueprint"
 import { Button } from "@/components/ui/button"
 
-interface ErrorPageProps {
-  error: Error & { digest?: string }
-  retry: () => void
-}
+export default function Forbidden() {
+  const pathname = usePathname()
 
-export default function ErrorPage({ error, retry }: ErrorPageProps) {
-  const [copied, setCopied] = useState(false)
-  const [time, setTime] = useState("")
-  const incidentCode = error.digest
-
-  useEffect(() => {
-    setTime(
-      new Date().toLocaleTimeString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    )
-  }, [])
-
-  function handleCopy() {
-    if (!incidentCode) return
-    void navigator.clipboard.writeText(incidentCode)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+  const displayPath =
+    pathname && pathname.length > 32
+      ? pathname.slice(0, 30) + "…"
+      : (pathname ?? "/")
 
   return (
     <div
@@ -60,7 +42,7 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
           />
         </Link>
         <span className="font-heading text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-          Erro 500
+          Erro 403
         </span>
       </header>
 
@@ -69,23 +51,23 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
           <div className="flex items-center gap-2.5">
             <span className="size-2 shrink-0 bg-primary" aria-hidden="true" />
             <span className="font-heading text-[11px] font-semibold uppercase tracking-[0.18em] text-primary">
-              Falha no servidor
+              Acesso proibido
             </span>
           </div>
 
           <h1 className="font-heading text-5xl font-bold leading-[1.08] text-white lg:text-6xl">
-            Alguma coisa quebrou do nosso lado.
+            Você não tem permissão para acessar isso.
           </h1>
 
           <p className="max-w-[44ch] text-[15px] leading-relaxed text-white/55">
-            Não foi você. O time já recebeu o registro dessa falha. Tenta de
-            novo em alguns instantes — se continuar, avisa a gente no Discord
-            com o código abaixo.
+            Sua conta foi reconhecida, mas o nível de acesso necessário para
+            esse recurso é maior do que o que você tem. Se acredita que deveria
+            estar aqui, fala com a gente no Discord.
           </p>
 
           <div className="flex flex-wrap gap-3">
-            <Button size="lg" onClick={retry} className="uppercase tracking-[0.08em]">
-              Tentar de novo
+            <Button size="lg" className="uppercase tracking-[0.08em]" nativeButton={false} render={<Link href="/" />}>
+              Ir para a home
             </Button>
             <Button
               variant="outline"
@@ -93,41 +75,47 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
               className="text-white uppercase tracking-[0.08em] hover:bg-white/10 active:bg-white/15"
               style={{ borderColor: "rgba(255,255,255,0.28)" }}
               nativeButton={false}
-              render={<Link href="/" />}
+              render={<a href="https://discord.gg/soujunior" target="_blank" rel="noopener noreferrer" />}
             >
-              Ir para a home
+              Solicitar acesso
             </Button>
           </div>
 
           <div className="border-t border-white/10" />
 
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col gap-3">
             <span className="font-heading text-[10px] uppercase tracking-[0.18em] text-white/35">
-              Código do incidente
+              Precisa de mais acesso?
             </span>
-            {incidentCode ? (
-              <>
-                <code className="border border-white/20 px-2.5 py-1 font-mono text-xs text-white/65">
-                  {incidentCode}
-                </code>
-                <button
-                  type="button"
-                  onClick={handleCopy}
-                  className="font-heading text-[11px] uppercase tracking-[0.12em] text-primary hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
-                >
-                  {copied ? "Copiado" : "Copiar"}
-                </button>
-              </>
-            ) : (
-              <span className="font-mono text-xs text-white/30">—</span>
-            )}
+            <p className="max-w-[52ch] text-[14px] leading-relaxed text-white/55">
+              Alguns recursos são restritos a voluntários com perfil confirmado
+              ou apoiadores ativos.{" "}
+              <a
+                href="https://apoia.se/soujunior"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:opacity-70"
+              >
+                Virar apoiador no Apoia.se
+              </a>{" "}
+              ou{" "}
+              <a
+                href="https://discord.gg/soujunior"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:opacity-70"
+              >
+                solicitar no Discord
+              </a>
+              .
+            </p>
           </div>
         </div>
 
         <Blueprint className="hidden w-full max-w-sm shrink-0 lg:block">
           <div className="flex items-center justify-center px-10 py-12">
             <span className="font-heading text-[9rem] font-bold leading-none text-primary xl:text-[11rem]">
-              500
+              403
             </span>
           </div>
 
@@ -139,23 +127,23 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
                 Status
               </span>
               <span className="font-heading text-sm font-semibold text-white">
-                {error.name === "Error" ? "Internal Server Error" : error.name}
+                Forbidden
               </span>
             </div>
             <div className="flex items-center justify-between px-7 py-4">
               <span className="font-heading text-[10px] uppercase tracking-[0.18em] text-white/35">
-                Serviço
+                Recurso
               </span>
-              <span className="font-heading text-sm font-semibold text-white">
-                api-apoiadores
+              <span className="font-mono text-xs font-semibold text-white/70">
+                {displayPath}
               </span>
             </div>
             <div className="flex items-center justify-between px-7 py-4">
               <span className="font-heading text-[10px] uppercase tracking-[0.18em] text-white/35">
-                Horário
+                Permissão
               </span>
               <span className="font-heading text-sm font-semibold text-white">
-                {time}
+                Negada
               </span>
             </div>
           </div>
@@ -167,10 +155,12 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
           SouJunior — comunidade voluntária de tecnologia
         </span>
         <a
-          href="#"
+          href="https://discord.gg/soujunior"
+          target="_blank"
+          rel="noopener noreferrer"
           className="text-xs text-primary hover:opacity-70"
         >
-          Falar com o time no Discord
+          Pedir acesso ao time
         </a>
       </footer>
     </div>
