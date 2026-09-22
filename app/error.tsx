@@ -38,7 +38,8 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
       style={
         {
           backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent calc(100% / 12))",
+            "linear-gradient(color-mix(in srgb,var(--primary) 8%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--primary) 8%,transparent) 1px,transparent 1px)",
+          backgroundSize: "64px 64px",
           "--color-text": "#e8e9ea",
           "--color-accent": "#3c7ef9",
           "--primary": "#3c7ef9",
@@ -91,6 +92,7 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
               size="lg"
               className="text-white uppercase tracking-[0.08em] hover:bg-white/10 active:bg-white/15"
               style={{ borderColor: "rgba(255,255,255,0.28)" }}
+              nativeButton={false}
               render={<Link href="/" />}
             >
               Ir para a home
