@@ -10,7 +10,7 @@ export function Header() {
           aria-label="SouJunior - início"
         >
           <Image
-            src="/logo-soujunior.svg"
+            src="/icos/logo-blue.svg"
             alt="SouJunior"
             width={275}
             height={104}
@@ -50,14 +50,25 @@ export function Header() {
           >
             Trajetórias
           </a>
+        </nav>
+
+        <div className="flex shrink-0 items-center gap-3">
+          <a
+            href="https://apoia.se/soujunior"
+            className="hidden border border-foreground px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] text-foreground no-underline uppercase hover:opacity-70 sm:inline-flex"
+          >
+            Entrar
+          </a>
 
           <a
-            href="#niveis"
-            className="text-sm font-semibold text-primary no-underline hover:opacity-70"
+            href="https://apoia.se/soujunior"
+            target="_blank"
+            rel="noopener"
+            className="relative inline-flex items-center bg-primary px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] text-primary-foreground no-underline uppercase hover:opacity-90"
           >
-            Apoiar
+            Apoiar agora
           </a>
-        </nav>
+        </div>
       </div>
     </header>
   )

@@ -1,54 +1,74 @@
+import Image from "next/image"
+
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-background">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-4 lg:px-8">
-        <div className="lg:col-span-2">
-          <a
-            href="#inicio"
-            className="font-bold text-foreground no-underline"
-          >
-            SouJunior
-          </a>
+    <footer className="bg-navy text-background">
+      <div className="mx-auto max-w-7xl px-4 pb-8 pt-14 sm:px-6 lg:px-8">
+        <div className="grid gap-8 border-b border-background/20 pb-9 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <Image
+              src="/icos/logo-white.svg"
+              alt="SouJunior"
+              width={275}
+              height={104}
+              className="h-6 w-auto"
+            />
 
-          <p className="mt-4 max-w-sm text-sm text-muted-foreground">
-            Comunidade brasileira que abre a primeira porta de
-            carreira em tecnologia.
-          </p>
-        </div>
+            <p className="mt-4 max-w-xs text-sm leading-6 text-background/60">
+              Comunidade brasileira que abre a primeira porta de carreira
+              em tecnologia.
+            </p>
+          </div>
 
-        <div>
-          <h3 className="text-sm font-bold">
-            Apoio
-          </h3>
+          <div className="flex flex-col gap-2.5 text-sm">
+            <h3 className="mb-1 text-[11px] font-bold tracking-[0.14em] text-background uppercase">
+              Apoio
+            </h3>
 
-          <div className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground">
-            <a href="#apoia-se">Apoia.se</a>
-            <a href="#niveis">Níveis de apoio</a>
-            <a href="#">Relatórios</a>
+            <a href="https://apoia.se/soujunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+              Apoia.se
+            </a>
+            <a href="#niveis" className="text-background/60 no-underline hover:text-background">
+              Níveis de apoio
+            </a>
+            <a href="#contas" className="text-background/60 no-underline hover:text-background">
+              Relatórios
+            </a>
+          </div>
+
+          <div className="flex flex-col gap-2.5 text-sm">
+            <h3 className="mb-1 text-[11px] font-bold tracking-[0.14em] text-background uppercase">
+              Comunidade
+            </h3>
+
+            <a href="https://discord.gg/soujunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+              Discord
+            </a>
+            <a href="https://whatsapp.com" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+              WhatsApp
+            </a>
+            <a href="https://github.com/soujunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+              GitHub
+            </a>
+          </div>
+
+          <div className="flex flex-col gap-2.5 text-sm">
+            <h3 className="mb-1 text-[11px] font-bold tracking-[0.14em] text-background uppercase">
+              SouJunior
+            </h3>
+
+            <a href="https://soujunior.tech" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+              soujunior.tech
+            </a>
+            <a href="https://soujunior.tech" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+              Seja voluntário
+            </a>
           </div>
         </div>
 
-        <div>
-          <h3 className="text-sm font-bold">
-            Comunidade
-          </h3>
-
-          <div className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground">
-            <a href="#">Discord</a>
-            <a href="#">WhatsApp</a>
-            <a href="#">GitHub</a>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-sm font-bold">
-            SouJunior
-          </h3>
-
-          <div className="mt-4 flex flex-col gap-2 text-sm text-muted-foreground">
-            <a href="#">soujunior.tech</a>
-            <a href="#">Seja voluntário</a>
-          </div>
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-5 text-[11px] text-background/40">
+          <span>© 2026 SouJunior · números ilustrativos</span>
+          <span>apoia.se/soujunior</span>
         </div>
       </div>
     </footer>

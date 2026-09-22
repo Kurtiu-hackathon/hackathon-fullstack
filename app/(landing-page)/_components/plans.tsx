@@ -8,67 +8,66 @@ export function Plans() {
       className="bg-background"
     >
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-        <p className="text-xs font-semibold tracking-[0.18em] text-primary">
-          04 — NÍVEIS DE APOIO
-        </p>
+        <div className="mb-9">
+          <p className="mb-3 text-[11px] font-semibold tracking-[0.2em] text-primary uppercase">
+            04 — Níveis de apoio
+          </p>
 
-        <h2 className="mt-5 text-4xl font-black tracking-tight sm:text-6xl">
-          Escolha seu commit mensal
-        </h2>
+          <h2 className="text-4xl font-black tracking-tight sm:text-5xl">
+            Escolha seu commit mensal
+          </h2>
 
-        <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
-          Qualquer valor a partir de R$ 2 entra no mesmo caixa
-          transparente. Você cancela quando quiser, direto no
-          Apoia.se.
-        </p>
+          <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+            Qualquer valor a partir de R$ 2 entra no mesmo caixa
+            transparente. Você cancela quando quiser, direto no Apoia.se.
+          </p>
+        </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {plans.map((plan) => (
             <Blueprint
               key={plan.name}
               className={
-                plan.featured
-                  ? "border-primary bg-primary p-6 text-primary-foreground sm:p-8"
-                  : "p-6 sm:p-8"
+                "featured" in plan && plan.featured
+                  ? "flex flex-col gap-4 border-primary bg-primary p-7 text-primary-foreground"
+                  : "flex flex-col gap-4 p-7"
               }
             >
-              <div className="flex min-h-8 items-start justify-between gap-4">
-                <span className="text-xs font-bold tracking-widest">
+              <div className="flex min-h-5 items-start justify-between gap-3">
+                <span className="text-[11px] font-bold tracking-[0.16em] uppercase">
                   {plan.name}
                 </span>
 
-                {plan.featured && (
-                  <span className="rounded-full bg-primary-foreground px-3 py-1 text-[10px] font-bold text-primary">
-                    MAIS ESCOLHIDO
+                {"featured" in plan && plan.featured && (
+                  <span className="bg-primary-foreground px-2 py-0.5 text-[10px] font-bold text-primary uppercase">
+                    Mais escolhido
                   </span>
                 )}
               </div>
 
-              <strong className="mt-8 block text-5xl font-black">
+              <strong className="font-heading text-5xl font-black leading-[0.9]">
                 {plan.price}
               </strong>
 
               <p
-                className={
-                  plan.featured
-                    ? "mt-5 min-h-16 leading-7 opacity-80"
-                    : "mt-5 min-h-16 leading-7 text-muted-foreground"
-                }
+                className={`flex-1 text-sm leading-6 ${
+                  "featured" in plan && plan.featured ? "text-primary-foreground/80" : "text-muted-foreground"
+                }`}
               >
                 {plan.description}
               </p>
 
               <a
-                href="#apoia-se"
+                href="https://apoia.se/soujunior"
+                target="_blank"
+                rel="noopener"
                 className={
-                  plan.featured
-                    ? "mt-8 inline-flex rounded-md bg-primary-foreground px-5 py-3 text-sm font-bold text-primary no-underline hover:opacity-90"
-                    : "mt-8 inline-flex rounded-md bg-primary px-5 py-3 text-sm font-bold text-primary-foreground no-underline hover:opacity-90"
+                  "featured" in plan && plan.featured
+                    ? "inline-flex items-center justify-center bg-primary-foreground px-4 py-3 text-[11px] font-bold tracking-[0.04em] text-primary no-underline uppercase hover:opacity-90"
+                    : "inline-flex items-center justify-center bg-primary px-4 py-3 text-[11px] font-bold tracking-[0.04em] text-primary-foreground no-underline uppercase hover:opacity-90"
                 }
               >
-                {plan.featured
-                  ? `APOIAR COM ${plan.price}`
-                  : "APOIAR"}
+                {"featured" in plan && plan.featured ? `Apoiar com ${plan.price}` : "Apoiar"}
               </a>
             </Blueprint>
           ))}
