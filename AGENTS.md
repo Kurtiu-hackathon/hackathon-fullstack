@@ -77,6 +77,23 @@ export function DataCard({ className, title, children, ...props }: DataCardProps
 - Mobile-first; componente é fluido por padrão (`max-width`, não `width` fixo).
 - Estados (hover, active, focus-visible, disabled) vêm do tema — não redefina por página.
 
+## Páginas de file-system conventions (error.tsx, not-found.tsx, loading.tsx…)
+
+O fundo dessas páginas deve ser idêntico ao do Hero da landing page: `bg-navy` com grid de 64 px formado por dois `linear-gradient` usando `var(--primary)` a 8% de opacidade.
+
+```tsx
+<div
+  className="flex min-h-screen flex-col bg-navy"
+  style={{
+    backgroundImage:
+      "linear-gradient(color-mix(in srgb,var(--primary) 8%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--primary) 8%,transparent) 1px,transparent 1px)",
+    backgroundSize: "64px 64px",
+  }}
+>
+```
+
+Não use outros padrões de fundo (colunas repetidas, gradientes radiais, `repeating-linear-gradient`) nessas páginas.
+
 ## Formulários
 
 `react-hook-form` + `zod` + o `Form` do shadcn. Sempre. Sem estado manual de campo, sem validação ad-hoc no submit.

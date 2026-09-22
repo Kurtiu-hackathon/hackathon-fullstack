@@ -208,6 +208,35 @@
   --animate-ticker: ticker 28s linear infinite;
 }
 
+/* ── Loading page animations ──────────────────────── */
+@keyframes sjCell {
+  0%, 72%, 100% { background: rgba(60,126,249,.1); transform: scale(.82); }
+  18%, 46%      { background: #3c7ef9;             transform: scale(1);   }
+}
+@keyframes sjScanY {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(700%);  }
+}
+@keyframes sjMarch {
+  from { background-position: 0 0;    }
+  to   { background-position: 28px 0; }
+}
+@keyframes sjBlink {
+  0%, 100% { opacity: .25; }
+  50%      { opacity: 1;   }
+}
+@keyframes sjGridDrift {
+  from { background-position: 0 0;       }
+  to   { background-position: 56px 56px; }
+}
+@keyframes sjSweep {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sj-animate { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
+
 /* ── Blueprint corner registration marks ──────────── */
 .blueprint-corner {
   position: absolute;
