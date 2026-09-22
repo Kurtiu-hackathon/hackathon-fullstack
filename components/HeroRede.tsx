@@ -108,12 +108,13 @@ export default function HeroRede({ className }: { className?: string }) {
     resize();
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const clock = new THREE.Clock();
+    const timer = new THREE.Timer();
     let raf = 0;
 
     const loop = () => {
       raf = requestAnimationFrame(loop);
-      const t = clock.getElapsedTime();
+      timer.update();
+      const t = timer.getElapsed();
 
       root.rotation.y = t * 0.12 + pointer.x * 0.45;
       root.rotation.x += (-pointer.y * 0.28 - root.rotation.x) * 0.06;
