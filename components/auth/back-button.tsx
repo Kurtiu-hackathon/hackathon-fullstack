@@ -1,9 +1,6 @@
-"use client";
-
 import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type BackButtonProps = {
@@ -11,20 +8,16 @@ type BackButtonProps = {
 };
 
 export function BackButton({ className }: BackButtonProps) {
-  const router = useRouter();
-
   return (
-    <Button
-      type="button"
-      variant="ghost"
-      onClick={() => router.back()}
+    <Link
+      href="/"
       className={cn(
-        "min-h-11 gap-2 px-0 text-xs font-semibold tracking-[0.16em] uppercase",
+        "inline-flex min-h-11 items-center gap-2 px-0 text-xs font-semibold tracking-[0.16em] uppercase",
         className,
       )}
     >
       <ArrowLeft aria-hidden="true" className="size-4" strokeWidth={1.5} />
       Voltar
-    </Button>
+    </Link>
   );
 }

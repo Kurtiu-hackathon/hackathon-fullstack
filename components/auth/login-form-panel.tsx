@@ -59,16 +59,16 @@ export function LoginFormPanel({
         <BackButton className="tracking-[0.14em] text-[var(--accent-700)] hover:bg-transparent hover:text-[var(--accent-800)]" />
       </header>
 
-      <div className="flex-1 px-5 py-10 sm:px-10 sm:py-14 lg:px-14 lg:pt-40 lg:pb-10 xl:px-16">
+      <div className="flex-1 px-5 py-10 sm:px-10 sm:py-14 lg:px-14 lg:pt-[250px] lg:pb-10 xl:px-16">
         <div
           key={mode}
-          className="mx-auto grid w-full max-w-[32.75rem] gap-8 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-3 motion-safe:duration-500"
+          className="mx-auto grid w-full max-w-[36rem] gap-9 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-right-3 motion-safe:duration-500"
         >
           <div className="grid gap-3">
-            <h1 className="text-[2.65rem] leading-[0.98] font-semibold tracking-tight text-[#071226] sm:text-[2.8rem]">
+            <h1 className="text-[2.9rem] leading-[0.98] font-semibold tracking-tight text-[#071226] sm:text-[3.1rem]">
               {content.title}
             </h1>
-            <p className="text-[0.98rem] leading-7 text-[#416180]">
+            <p className="text-[1.05rem] leading-7 text-[#416180]">
               {content.description}
             </p>
           </div>

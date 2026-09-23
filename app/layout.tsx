@@ -29,10 +29,7 @@ export const metadata: Metadata = {
     "A SouJunior é mantida pela própria comunidade. Mentoria gratuita, projetos open-source reais e a primeira oportunidade de milhares de devs juniores — tudo isso começa com R$ 2.",
   keywords: ["SouJunior", "devs juniores", "mentoria", "open-source", "carreira júnior"],
   icons: {
-    icon: [
-      { url: "/icos/icon-black.svg", media: "(prefers-color-scheme: light)" },
-      { url: "/icos/icon-white.svg", media: "(prefers-color-scheme: dark)" },
-    ],
+    icon: "/icos/icon-blue.svg",
   },
 };
 

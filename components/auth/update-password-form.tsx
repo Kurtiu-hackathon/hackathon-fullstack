@@ -1,10 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import { updatePassword } from "@/app/login/_actions/authentication";
 import {
   authInputClassName,
   authLabelClassName,
@@ -19,45 +19,29 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { getAuthErrorMessage } from "@/lib/auth/error-message";
-import { createClient } from "@/lib/supabase/client";
 import {
   updatePasswordSchema,
   type UpdatePasswordValues,
 } from "@/lib/validations/auth";
 
 export function UpdatePasswordForm() {
-  const router = useRouter();
   const [formError, setFormError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
   const form = useForm<UpdatePasswordValues>({
     resolver: zodResolver(updatePasswordSchema),
     defaultValues: { password: "" },
   });
 
-  async function onSubmit(values: UpdatePasswordValues) {
+  function onSubmit(values: UpdatePasswordValues) {
     setFormError(null);
 
-    const supabase = createClient();
-    const { error } = await supabase.auth.updateUser({
-      password: values.password,
+    startTransition(async () => {
+      const result = await updatePassword(values);
+
+      if (result.status === "error") {
+        setFormError(result.message);
+      }
     });
-
-    if (error) {
-      setFormError(getAuthErrorMessage(error));
-      return;
-    }
-
-    const { error: signOutError } = await supabase.auth.signOut();
-
-    if (signOutError) {
-      setFormError(
-        "Sua senha foi atualizada, mas não foi possível encerrar a sessão. Saia da conta antes de entrar novamente.",
-      );
-      return;
-    }
-
-    router.replace("/login?password_updated=1");
-    router.refresh();
   }
 
   return (
@@ -81,7 +65,7 @@ export function UpdatePasswordForm() {
                 autoComplete="new-password"
                 aria-invalid={fieldState.invalid}
                 aria-describedby="new-password-description"
-                disabled={form.formState.isSubmitting}
+                disabled={isPending}
                 className={authInputClassName}
               />
               {!fieldState.invalid && (
@@ -103,7 +87,7 @@ export function UpdatePasswordForm() {
 
         <AuthSubmitButton
           type="submit"
-          isSubmitting={form.formState.isSubmitting}
+          isSubmitting={isPending}
           pendingLabel="Salvando..."
         >
           Salvar nova senha
