@@ -29,7 +29,7 @@ export function UpdatePasswordForm() {
   const [isPending, startTransition] = useTransition();
   const form = useForm<UpdatePasswordValues>({
     resolver: zodResolver(updatePasswordSchema),
-    defaultValues: { password: "" },
+    defaultValues: { password: "", passwordConfirmation: "" },
   });
 
   function onSubmit(values: UpdatePasswordValues) {
@@ -76,6 +76,33 @@ export function UpdatePasswordForm() {
                   Use pelo menos 8 caracteres.
                 </FieldDescription>
               )}
+              {fieldState.invalid && (
+                <FieldError errors={[fieldState.error]} />
+              )}
+            </Field>
+          )}
+        />
+
+        <Controller
+          name="passwordConfirmation"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel
+                htmlFor="new-password-confirmation"
+                className={authLabelClassName}
+              >
+                Confirmar nova senha
+              </FieldLabel>
+              <PasswordInput
+                {...field}
+                id="new-password-confirmation"
+                placeholder="Digite a nova senha novamente"
+                autoComplete="new-password"
+                aria-invalid={fieldState.invalid}
+                disabled={isPending}
+                className={authInputClassName}
+              />
               {fieldState.invalid && (
                 <FieldError errors={[fieldState.error]} />
               )}

@@ -184,7 +184,9 @@ export async function updatePassword(
     };
   }
 
-  const { error } = await supabase.auth.updateUser(parsedValues.data);
+  const { error } = await supabase.auth.updateUser({
+    password: parsedValues.data.password,
+  });
 
   if (error) {
     return { status: "error", message: getAuthErrorMessage(error) };
