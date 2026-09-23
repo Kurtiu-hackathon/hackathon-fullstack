@@ -4,18 +4,15 @@ import { upcomingEvents } from "../_data/events"
 
 export function UpcomingEvents() {
   return (
-    <section
-      id="eventos"
-      className="mt-12"
-    >
+    <section id="eventos" className="mt-12">
       <div className="flex items-end justify-between gap-6">
-        <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
+        <h2 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
           Próximos eventos
         </h2>
 
         <a
           href="#eventos"
-          className="hidden text-sm font-medium text-primary no-underline sm:block"
+          className="hidden font-body text-sm font-medium text-primary no-underline transition-colors hover:text-accent-700 sm:block"
         >
           Ver agenda no Discord →
         </a>
@@ -30,39 +27,40 @@ export function UpcomingEvents() {
             <div className="flex flex-col gap-8">
               <div className="flex items-start justify-between gap-6">
                 <div>
-                  <strong className="block text-5xl font-black leading-none sm:text-6xl">
+                  <strong className="block font-heading text-5xl font-semibold leading-none sm:text-6xl">
                     {event.day}
                   </strong>
 
-                  <span className="mt-3 block text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                  <span className="mt-3 block font-heading text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
                     {event.date}
                   </span>
                 </div>
 
                 <span
-                  className={
+                  className={[
+                    "border px-4 py-2 font-heading text-xs font-semibold tracking-[0.16em] uppercase",
                     event.type === "SÓ APOIADORES"
-                      ? "bg-foreground px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-background"
-                      : "bg-primary/10 px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-primary"
-                  }
+                      ? "border-foreground text-foreground"
+                      : "border-primary text-primary",
+                  ].join(" ")}
                 >
                   {event.type}
                 </span>
               </div>
 
               <div>
-                <h3 className="text-2xl font-black tracking-tight sm:text-3xl">
+                <h3 className="font-heading text-2xl font-semibold tracking-tight sm:text-3xl">
                   {event.title}
                 </h3>
 
-                <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
+                <p className="mt-5 max-w-3xl font-body text-base leading-7 text-muted-foreground sm:text-lg">
                   {event.description}
                 </p>
               </div>
 
               <a
                 href="#"
-                className="flex min-h-14 items-center justify-center border border-foreground px-6 text-sm font-medium text-foreground no-underline transition-colors hover:bg-foreground hover:text-background"
+                className="flex min-h-14 items-center justify-center border border-foreground px-6 font-heading text-sm font-semibold text-foreground no-underline transition-colors hover:bg-foreground hover:text-background"
               >
                 {event.action}
               </a>
