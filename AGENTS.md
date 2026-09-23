@@ -79,7 +79,7 @@ export function DataCard({ className, title, children, ...props }: DataCardProps
 
 ## Formulários
 
-`react-hook-form` + `zod` + o `Form` do shadcn. Sempre. Sem estado manual de campo, sem validação ad-hoc no submit.
+`react-hook-form` + `zod` + os componentes `Field` do shadcn. Sempre. Sem estado manual de campo, sem validação ad-hoc no submit.
 
 ## Acessibilidade
 
