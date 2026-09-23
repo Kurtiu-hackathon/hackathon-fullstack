@@ -26,7 +26,14 @@ export const metadata: Metadata = {
     template: "%s | SouJunior",
   },
   description:
-    "Comunidade brasileira que abre a primeira porta de carreira em tecnologia.",
+    "A SouJunior é mantida pela própria comunidade. Mentoria gratuita, projetos open-source reais e a primeira oportunidade de milhares de devs juniores — tudo isso começa com R$ 2.",
+  keywords: ["SouJunior", "devs juniores", "mentoria", "open-source", "carreira júnior"],
+  icons: {
+    icon: [
+      { url: "/icos/icon-black.svg", media: "(prefers-color-scheme: light)" },
+      { url: "/icos/icon-white.svg", media: "(prefers-color-scheme: dark)" },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
