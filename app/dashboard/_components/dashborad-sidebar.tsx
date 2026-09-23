@@ -1,4 +1,5 @@
-import Image from "public/logo-soujunior"
+import Image from "next/image"
+import { X } from "lucide-react"
 
 type DashboardSidebarProps = {
   open: boolean
@@ -48,80 +49,84 @@ export function DashboardSidebar({
               type="button"
               onClick={onClose}
               aria-label="Fechar menu"
-              className="flex h-12 w-12 items-center justify-center border border-background/20 text-2xl lg:hidden"
+              className="flex h-12 w-12 items-center justify-center border border-background/20 text-background transition-colors hover:border-accent-700 hover:text-accent-700 lg:hidden"
             >
-              ×
+              <X
+                size={20}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
             </button>
           </div>
 
           <div className="mt-10 border border-background/15 p-5">
             <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center bg-primary text-xl font-bold text-primary-foreground">
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center bg-primary font-heading text-xl font-semibold text-primary-foreground">
                 ML
               </div>
 
               <div>
-                <p className="font-bold">
+                <p className="font-heading font-semibold text-background">
                   Marina Lopes
                 </p>
 
-                <p className="mt-1 text-xs font-medium uppercase tracking-[0.14em] text-primary">
+                <p className="mt-1 font-heading text-xs font-semibold tracking-[0.14em] text-primary uppercase">
                   Apoiadora · R$ 25
                 </p>
               </div>
             </div>
           </div>
 
-          <nav className="mt-10">
-            <p className="mb-4 text-xs uppercase tracking-[0.25em] text-background/40">
+          <nav className="mt-10" aria-label="Navegação do painel">
+            <p className="mb-4 font-heading text-xs font-semibold tracking-[0.25em] text-background/40 uppercase">
               Painel
             </p>
 
             <div className="space-y-1">
               <a
                 href="#visao-geral"
-                className="block bg-primary px-5 py-4 text-base text-primary-foreground no-underline"
+                className="block bg-primary px-5 py-4 font-body text-base text-primary-foreground no-underline"
               >
                 Visão geral
               </a>
 
               <a
                 href="#eventos"
-                className="block px-5 py-4 text-base text-background/75 no-underline transition-colors hover:bg-background/5"
+                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Eventos
               </a>
 
               <a
                 href="#premios"
-                className="block px-5 py-4 text-base text-background/75 no-underline transition-colors hover:bg-background/5"
+                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Prêmios
               </a>
 
               <a
                 href="#forum"
-                className="block px-5 py-4 text-base text-background/75 no-underline transition-colors hover:bg-background/5"
+                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Fórum
               </a>
             </div>
 
-            <p className="mb-4 mt-8 text-xs uppercase tracking-[0.25em] text-background/40">
+            <p className="mb-4 mt-8 font-heading text-xs font-semibold tracking-[0.25em] text-background/40 uppercase">
               Apoio
             </p>
 
             <div className="space-y-1">
               <a
                 href="#contribuicao"
-                className="block px-5 py-4 text-base text-background/75 no-underline transition-colors hover:bg-background/5"
+                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Minha contribuição
               </a>
 
               <a
                 href="/"
-                className="block px-5 py-4 text-base text-background/75 no-underline transition-colors hover:bg-background/5"
+                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Landing pública
               </a>
@@ -130,25 +135,29 @@ export function DashboardSidebar({
 
           <div className="mt-auto">
             <div className="border border-background/15 p-5">
-              <p className="text-xs font-medium uppercase tracking-[0.2em] text-primary">
+              <p className="font-heading text-xs font-semibold tracking-[0.2em] text-primary uppercase">
                 Meta de junho
               </p>
 
               <div
                 className="mt-5 h-2 border border-background/20"
+                role="progressbar"
                 aria-label="69,6% da meta de junho"
+                aria-valuenow={69.6}
+                aria-valuemin={0}
+                aria-valuemax={100}
               >
-                <div className="h-full w-[70%] bg-primary" />
+                <div className="h-full w-[69.6%] bg-primary" />
               </div>
 
-              <p className="mt-4 text-sm text-background/75">
+              <p className="mt-4 font-body text-sm text-background/75">
                 R$ 3.480 de R$ 5.000
               </p>
             </div>
 
             <button
               type="button"
-              className="mt-8 text-sm text-background/60 transition-colors hover:text-background"
+              className="mt-8 font-body text-sm text-background/60 transition-colors hover:text-accent-700"
             >
               Sair da conta
             </button>
