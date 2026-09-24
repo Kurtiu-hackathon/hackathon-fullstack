@@ -1,7 +1,86 @@
-<h2>Confirme seu e-mail</h2>
-<p>Confirme seu endereço para concluir a criação da sua conta SouJunior.</p>
-<p>
-  <a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email&amp;next=/dashboard">
-    Confirmar e-mail
-  </a>
-</p>
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="supported-color-schemes" content="light dark">
+<title>Confirme seu e-mail — SouJunior</title>
+<!--[if mso]><style>table,td{font-family:Arial,Helvetica,sans-serif!important}</style><![endif]-->
+<style>
+@media (max-width:620px){.px{padding-left:24px!important;padding-right:24px!important}.h1{font-size:28px!important;line-height:32px!important}.btn a{display:block!important}}
+@media (prefers-color-scheme:dark){.bg{background:#10151f!important}.card{background:#161d2a!important;border-color:#2b3548!important}.ink{color:#e7ecf5!important}.mute{color:#9aa6bb!important}.code{background:#0f1520!important;border-color:#3c7ef9!important;color:#e7ecf5!important}}
+</style>
+</head>
+<body style="margin:0;padding:0;background:#f2f2f3;">
+<span style="display:none!important;visibility:hidden;opacity:0;color:transparent;height:0;width:0;max-height:0;max-width:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;">Falta um passo: confirme seu e-mail para ativar sua conta na SouJunior.&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;&#8199;&#847;</span>
+<table role="presentation" class="bg" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#f2f2f3" style="background:#f2f2f3;">
+<tr><td align="center" style="padding:40px 12px;">
+<!--[if mso]><table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td><![endif]-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;">
+
+<!-- Cabeçalho -->
+<tr><td bgcolor="#0b1220" style="background:#0b1220;padding:0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td width="12" style="width:12px;font-family:'Courier New',monospace;font-size:14px;line-height:14px;mso-line-height-rule:exactly;color:#3c7ef9;text-align:left;">+</td><td style="font-size:0;line-height:0;">&nbsp;</td><td width="12" style="width:12px;font-family:'Courier New',monospace;font-size:14px;line-height:14px;mso-line-height-rule:exactly;color:#3c7ef9;text-align:right;">+</td></tr>
+<tr><td></td><td class="px" style="padding:10px 28px 22px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td style="font-family:Arial,Helvetica,sans-serif;font-size:20px;line-height:24px;mso-line-height-rule:exactly;font-weight:bold;color:#f2f2f3;letter-spacing:-0.5px;">
+Sou<span style="color:#8eb2fb;">Junior</span></td>
+<td align="right" style="font-family:'Courier New',monospace;font-size:11px;line-height:14px;letter-spacing:2px;text-transform:uppercase;color:#8090a8;">Confirmação de e-mail</td>
+</tr></table>
+</td><td></td></tr>
+</table>
+</td></tr>
+<tr><td height="3" bgcolor="#3c7ef9" style="height:3px;font-size:0;line-height:0;background:#3c7ef9;">&nbsp;</td></tr>
+
+<!-- Corpo -->
+<tr><td class="card" bgcolor="#ffffff" style="background:#ffffff;border:1px solid #d5d9e0;border-top:0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+<tr><td class="px" style="padding:40px 44px 8px;">
+<p class="mute" style="margin:0 0 12px;font-family:'Courier New',monospace;font-size:11px;line-height:14px;letter-spacing:2px;text-transform:uppercase;color:#59647a;">Confirmação de e-mail</p>
+<h1 class="h1 ink" style="margin:0 0 16px;font-family:Arial,Helvetica,sans-serif;font-size:32px;line-height:36px;mso-line-height-rule:exactly;font-weight:bold;letter-spacing:-0.8px;color:#0b1220;">Confirme seu e-mail</h1>
+<p class="mute" style="margin:0 0 28px;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:24px;mso-line-height-rule:exactly;color:#3d4659;">Sua conta na SouJunior foi criada. Para ativá-la e começar a apoiar a comunidade, confirme que este endereço é seu. O link expira em 24 horas.</p>
+</td></tr>
+
+<tr><td class="px" style="padding:0 44px;">
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" class="btn"><tr>
+<td bgcolor="#3c7ef9" style="background:#3c7ef9;border-radius:0;">
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email&amp;next=/dashboard" target="_blank" style="display:inline-block;padding:16px 32px;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:16px;font-weight:bold;letter-spacing:1.5px;text-transform:uppercase;color:#ffffff;text-decoration:none;border:1px solid #2a5cc4;">Confirmar e-mail &rarr;</a>
+</td></tr></table>
+</td></tr>
+
+<tr><td class="px" style="padding:32px 44px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border-top:1px solid #d5d9e0;">
+<tr><td width="44" valign="top" style="width:44px;padding:14px 0;border-bottom:1px solid #e6e9ee;font-family:'Courier New',monospace;font-size:13px;line-height:20px;font-weight:bold;color:#2a5cc4;">01</td><td class="ink" style="padding:14px 0;border-bottom:1px solid #e6e9ee;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#0b1220;">Confirme seu e-mail</td></tr><tr><td width="44" valign="top" style="width:44px;padding:14px 0;border-bottom:1px solid #e6e9ee;font-family:'Courier New',monospace;font-size:13px;line-height:20px;font-weight:bold;color:#2a5cc4;">02</td><td class="ink" style="padding:14px 0;border-bottom:1px solid #e6e9ee;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#0b1220;">Complete seu perfil</td></tr><tr><td width="44" valign="top" style="width:44px;padding:14px 0;border-bottom:1px solid #e6e9ee;font-family:'Courier New',monospace;font-size:13px;line-height:20px;font-weight:bold;color:#2a5cc4;">03</td><td class="ink" style="padding:14px 0;border-bottom:1px solid #e6e9ee;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:20px;color:#0b1220;">Escolha seu nível de apoio</td></tr>
+</table></td></tr>
+
+<tr><td class="px" style="padding:28px 44px 0;">
+<p class="mute" style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#59647a;">O botão não funciona? Copie e cole este link no navegador:<br>
+<a href="{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email&amp;next=/dashboard" style="color:#2a5cc4;text-decoration:underline;word-break:break-all;">{{ .SiteURL }}/auth/confirm?token_hash={{ .TokenHash }}&amp;type=email&amp;next=/dashboard</a></p>
+</td></tr>
+
+<tr><td class="px" style="padding:28px 44px 40px;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td style="padding:14px 16px;border:1px solid #d5d9e0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;color:#3d4659;" class="mute">
+<strong class="ink" style="color:#0b1220;">Segurança.</strong> Se você não criou uma conta na SouJunior, ignore este e-mail — nenhuma conta será ativada.</td></tr></table>
+</td></tr>
+</table>
+</td></tr>
+
+<!-- Rodapé -->
+<tr><td class="px" style="padding:24px 28px 0;">
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"><tr>
+<td class="mute" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:18px;color:#59647a;">
+<strong style="color:#0b1220;" class="ink">SouJunior</strong> — comunidade voluntária que ajuda pessoas júniores a entrar na tecnologia.<br>
+Você recebeu este e-mail porque há uma conta vinculada a {{ .Email }}. Este é um e-mail transacional; não é preciso cancelar inscrição.<br>
+<a href="https://soujunior.tech" style="color:#2a5cc4;text-decoration:underline;">soujunior.tech</a> &nbsp;·&nbsp; <a href="mailto:contato@soujunior.tech" style="color:#2a5cc4;text-decoration:underline;">contato@soujunior.tech</a>
+</td></tr></table>
+</td></tr>
+
+</table>
+<!--[if mso]></td></tr></table><![endif]-->
+</td></tr>
+</table>
+</body>
+</html>
