@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { LoginFormPanel } from "@/components/auth/login-form-panel";
-import { LoginVisualPanel } from "@/components/auth/login-visual-panel";
+import { LoginFormPanel } from "@/app/login/_components/login-form-panel";
+import { LoginVisualPanel } from "@/app/login/_components/login-visual-panel";
 import { getAuthMode, type AuthMode } from "@/lib/auth/mode";
 import { getSafeRedirectPath } from "@/lib/auth/safe-redirect";
 

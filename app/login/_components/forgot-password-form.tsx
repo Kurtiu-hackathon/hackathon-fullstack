@@ -8,9 +8,9 @@ import { requestPasswordRecovery } from "@/app/login/_actions/authentication";
 import {
   authInputClassName,
   authLabelClassName,
-} from "@/components/auth/auth-form-styles";
-import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
-import { FeedbackMessage } from "@/components/auth/feedback-message";
+} from "@/app/login/_components/auth-form-styles";
+import { AuthSubmitButton } from "@/app/login/_components/auth-submit-button";
+import { FeedbackMessage } from "@/app/login/_components/feedback-message";
 import {
   Field,
   FieldError,

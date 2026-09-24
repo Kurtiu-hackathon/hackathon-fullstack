@@ -9,9 +9,9 @@ import {
   authInputClassName,
   authLabelClassName,
   authTextLinkClassName,
-} from "@/components/auth/auth-form-styles";
-import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
-import { PasswordInput } from "@/components/auth/password-input";
+} from "@/app/login/_components/auth-form-styles";
+import { AuthSubmitButton } from "@/app/login/_components/auth-submit-button";
+import { PasswordInput } from "@/app/login/_components/password-input";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Field,

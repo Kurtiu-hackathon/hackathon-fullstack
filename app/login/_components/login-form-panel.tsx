@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { AuthForm } from "@/components/auth/auth-form";
-import { authTextLinkClassName } from "@/components/auth/auth-form-styles";
-import { BackButton } from "@/components/auth/back-button";
-import { PasswordRecoveryForm } from "@/components/auth/password-recovery-form";
-import { BrandMark } from "@/components/common/brand-mark";
+import { AuthForm } from "@/app/login/_components/auth-form";
+import { authTextLinkClassName } from "@/app/login/_components/auth-form-styles";
+import { BackButton } from "@/app/login/_components/back-button";
+import { PasswordRecoveryForm } from "@/app/login/_components/password-recovery-form";
 import type { AuthMode } from "@/lib/auth/mode";
 
 type LoginFormPanelProps = {
@@ -53,7 +53,13 @@ export function LoginFormPanel({
           className="flex min-h-11 items-center gap-3 text-foreground no-underline"
           aria-label="SouJunior — início"
         >
-          <BrandMark />
+          <Image
+            src="/icos/icon-blue.svg"
+            alt=""
+            width={28}
+            height={28}
+            className="size-7"
+          />
           <span className="text-xl font-medium tracking-tight">SouJunior</span>
         </Link>
         <BackButton className="tracking-[0.14em] text-[var(--accent-700)] hover:bg-transparent hover:text-[var(--accent-800)]" />

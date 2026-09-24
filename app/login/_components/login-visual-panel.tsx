@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { BackButton } from "@/components/auth/back-button";
-import { BrandMark } from "@/components/common/brand-mark";
+import { BackButton } from "@/app/login/_components/back-button";
 
 const supporterStats = [
   { label: "Apoiadores", value: "214" },
@@ -19,7 +19,13 @@ export function LoginVisualPanel() {
           className="flex min-h-11 items-center gap-3 text-background no-underline transition-[opacity,transform] duration-200 hover:-translate-y-0.5 hover:opacity-75 motion-reduce:transform-none"
           aria-label="SouJunior — início"
         >
-          <BrandMark tone="inverse" />
+          <Image
+            src="/icos/icon-blue.svg"
+            alt=""
+            width={32}
+            height={32}
+            className="size-8"
+          />
           <span className="text-3xl font-medium tracking-tight">SouJunior</span>
         </Link>
 
@@ -34,8 +40,7 @@ export function LoginVisualPanel() {
           </p>
 
           <h1 className="max-w-none font-sans text-[5rem] leading-[1.1] font-bold tracking-[-0.045em] text-white">
-            <span className="block">Entra pra ver o que seu apoio</span>
-            <span className="block">construiu.</span>
+            Entre pra ver o que seu apoio construiu.
           </h1>
 
           <p className="max-w-[34rem] text-[1.45rem] leading-10 text-background/80">
