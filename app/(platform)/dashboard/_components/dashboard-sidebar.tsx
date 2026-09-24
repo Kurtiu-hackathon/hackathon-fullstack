@@ -1,17 +1,30 @@
-﻿import Image from "next/image"
+import Image from "next/image"
 import Link from "next/link"
 import { X } from "lucide-react"
 
 import { signOutAction } from "@lib/server/auth"
+import { cn } from "cn"
+import type { ActiveSection } from "./dashboard-types"
 
 type DashboardSidebarProps = {
   open: boolean
   onClose: () => void
+  activeSection: ActiveSection
+  onNavigate: (section: ActiveSection) => void
 }
+
+const NAV_PAINEL: { id: ActiveSection; label: string }[] = [
+  { id: "overview", label: "Visão geral" },
+  { id: "events", label: "Eventos" },
+  { id: "awards", label: "Prêmios" },
+  { id: "forum", label: "Fórum" },
+]
 
 export function DashboardSidebar({
   open,
   onClose,
+  activeSection,
+  onNavigate,
 }: DashboardSidebarProps) {
   return (
     <>
@@ -39,7 +52,7 @@ export function DashboardSidebar({
               className="no-underline"
             >
               <Image
-                src="/logo-soujunior.png"
+                src="/icos/logo-white.svg"
                 alt="SouJunior"
                 width={190}
                 height={70}
@@ -52,13 +65,9 @@ export function DashboardSidebar({
               type="button"
               onClick={onClose}
               aria-label="Fechar menu"
-              className="flex h-12 w-12 items-center justify-center border border-background/20 text-background transition-colors hover:border-accent-700 hover:text-accent-700 lg:hidden"
+              className="flex h-12 w-12 items-center justify-center border border-background/20 text-background transition-colors hover:border-primary hover:text-primary lg:hidden"
             >
-              <X
-                size={20}
-                strokeWidth={1.5}
-                aria-hidden="true"
-              />
+              <X size={20} strokeWidth={1.5} aria-hidden="true" />
             </button>
           </div>
 
@@ -72,8 +81,7 @@ export function DashboardSidebar({
                 <p className="font-heading font-semibold text-background">
                   Marina Lopes
                 </p>
-
-                <p className="mt-1 font-heading text-xs font-semibold tracking-[0.14em] text-primary uppercase">
+                <p className="mt-1 font-heading text-xs font-semibold uppercase tracking-[0.14em] text-primary">
                   Apoiadora · R$ 25
                 </p>
               </div>
@@ -81,79 +89,62 @@ export function DashboardSidebar({
           </div>
 
           <nav className="mt-10" aria-label="Navegação do painel">
-            <p className="mb-4 font-heading text-xs font-semibold tracking-[0.25em] text-background/40 uppercase">
+            <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-background/40">
               Painel
             </p>
 
-            <div className="space-y-1">
-              <a
-                href="#visao-geral"
-                className="block bg-primary px-5 py-4 font-body text-base text-primary-foreground no-underline"
-              >
-                Visão geral
-              </a>
-
-              <a
-                href="#eventos"
-                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
-              >
-                Eventos
-              </a>
-
-              <a
-                href="#premios"
-                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
-              >
-                Prêmios
-              </a>
-
-              <a
-                href="#forum"
-                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
-              >
-                Fórum
-              </a>
+            <div className="space-y-px">
+              {NAV_PAINEL.map(({ id, label }) => (
+                <button
+                  key={id}
+                  type="button"
+                  onClick={() => onNavigate(id)}
+                  className={cn(
+                    "block w-full px-3 py-[11px] text-left text-[14px] transition-colors",
+                    activeSection === id
+                      ? "bg-primary text-primary-foreground"
+                      : "text-background/75 hover:bg-primary hover:text-primary-foreground"
+                  )}
+                >
+                  {label}
+                </button>
+              ))}
             </div>
 
-            <p className="mb-4 mt-8 font-heading text-xs font-semibold tracking-[0.25em] text-background/40 uppercase">
+            <p className="mb-2.5 mt-[18px] text-[10px] font-semibold uppercase tracking-[0.2em] text-background/40">
               Apoio
             </p>
 
-            <div className="space-y-1">
+            <div className="space-y-px">
               <a
-                href="#contribuicao"
-                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
+                href="https://apoia.se/soujunior"
+                target="_blank"
+                rel="noopener"
+                className="block px-3 py-[11px] text-[14px] text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Minha contribuição
               </a>
-
-              <Link
-                href="/"
-                className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
-              >
-                Landing pública
-              </Link>
             </div>
           </nav>
 
           <div className="mt-auto">
-            <div className="border border-background/15 p-5">
-              <p className="font-heading text-xs font-semibold tracking-[0.2em] text-primary uppercase">
+            <div className="border border-background/15 p-4">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
                 Meta de junho
               </p>
 
               <div
-                className="mt-5 h-2 border border-background/20"
+                className="mt-2 h-2 border border-background/22"
                 role="progressbar"
                 aria-label="69,6% da meta de junho"
                 aria-valuenow={69.6}
                 aria-valuemin={0}
                 aria-valuemax={100}
               >
-                <div className="h-full w-[69.6%] bg-primary" />
+                <div className="h-full w-[70%] bg-primary" />
               </div>
 
-              <p className="mt-4 font-body text-sm text-background/75">
+              <p className="mt-2 text-[12.5px] text-background/60">
                 R$ 3.480 de R$ 5.000
               </p>
             </div>
@@ -161,7 +152,7 @@ export function DashboardSidebar({
             <form action={signOutAction}>
               <button
                 type="submit"
-                className="mt-8 font-body text-sm text-background/60 transition-colors hover:text-accent-700"
+                className="mt-6 text-[12.5px] text-background/60 transition-colors hover:text-primary"
               >
                 Sair da conta
               </button>
