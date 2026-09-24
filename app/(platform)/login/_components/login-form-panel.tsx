@@ -1,23 +1,12 @@
-<<<<<<<< HEAD:app/login/_components/login-form-panel.tsx
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
-
-import { AuthForm } from "@/app/login/_components/auth-form";
-import { authTextLinkClassName } from "@/app/login/_components/auth-form-styles";
-import { BackButton } from "@/app/login/_components/back-button";
-import { PasswordRecoveryForm } from "@/app/login/_components/password-recovery-form";
-import type { AuthMode } from "@/lib/auth/mode";
-========
-﻿import Link from "next/link";
 
 import { AuthForm } from "./auth-form";
 import { authTextLinkClassName } from "./auth-form-styles";
 import { BackButton } from "./back-button";
 import { PasswordRecoveryForm } from "./password-recovery-form";
 import { communityLinks } from "../_data/community-links";
-import { BrandMark } from "@components/common/brand-mark";
 import type { AuthMode } from "@lib/auth/mode";
->>>>>>>> development:app/(platform)/login/_components/login-form-panel.tsx
 
 type LoginFormPanelProps = {
   content: {

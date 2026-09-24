@@ -1,14 +1,8 @@
 ﻿import { ArrowRight, LoaderCircle } from "lucide-react";
 
-<<<<<<<< HEAD:app/login/_components/auth-submit-button.tsx
-import { authSubmitClassName } from "@/app/login/_components/auth-form-styles";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-========
 import { authSubmitClassName } from "./auth-form-styles";
 import { Button } from "@components/ui/button";
 import { cn } from "@lib/utils";
->>>>>>>> development:app/(platform)/login/_components/auth-submit-button.tsx
 
 type AuthSubmitButtonProps = React.ComponentProps<typeof Button> & {
   isSubmitting: boolean;

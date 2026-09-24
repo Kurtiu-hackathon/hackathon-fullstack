@@ -2,15 +2,6 @@
 
 import { LoaderCircle } from "lucide-react";
 
-<<<<<<<< HEAD:app/login/_components/auth-form.tsx
-import { AuthCredentialsForm } from "@/app/login/_components/auth-credentials-form";
-import { FeedbackMessage } from "@/app/login/_components/feedback-message";
-import { useAuthentication } from "@/app/login/_hooks/use-authentication";
-import { Blueprint } from "@/components/ui/blueprint";
-import { Button } from "@/components/ui/button";
-import { FieldSeparator } from "@/components/ui/field";
-import type { CredentialsAuthMode } from "@/lib/auth/mode";
-========
 import { AuthCredentialsForm } from "./auth-credentials-form";
 import { FeedbackMessage } from "./feedback-message";
 import { useAuthentication } from "./use-authentication";
@@ -18,7 +9,6 @@ import { Blueprint } from "@components/ui/blueprint";
 import { Button } from "@components/ui/button";
 import { FieldSeparator } from "@components/ui/field";
 import type { CredentialsAuthMode } from "@lib/auth/mode";
->>>>>>>> development:app/(platform)/login/_components/auth-form.tsx
 
 type AuthFormProps = {
   mode: CredentialsAuthMode;

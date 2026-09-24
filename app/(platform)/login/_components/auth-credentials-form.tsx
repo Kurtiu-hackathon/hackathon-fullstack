@@ -7,16 +7,9 @@ import {
   authInputClassName,
   authLabelClassName,
   authTextLinkClassName,
-<<<<<<<< HEAD:app/login/_components/auth-credentials-form.tsx
-} from "@/app/login/_components/auth-form-styles";
-import { AuthSubmitButton } from "@/app/login/_components/auth-submit-button";
-import { PasswordInput } from "@/app/login/_components/password-input";
-import { Checkbox } from "@/components/ui/checkbox";
-========
 } from "./auth-form-styles";
 import { AuthSubmitButton } from "./auth-submit-button";
 import { PasswordInput } from "./password-input";
->>>>>>>> development:app/(platform)/login/_components/auth-credentials-form.tsx
 import {
   Field,
   FieldDescription,

@@ -1,17 +1,9 @@
-<<<<<<<< HEAD:app/login/_components/back-button.tsx
-========
 ﻿"use client";
 
->>>>>>>> development:app/(platform)/login/_components/back-button.tsx
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-<<<<<<<< HEAD:app/login/_components/back-button.tsx
-import { cn } from "@/lib/utils";
-========
-import { Button } from "@components/ui/button";
 import { cn } from "@lib/utils";
->>>>>>>> development:app/(platform)/login/_components/back-button.tsx
 
 type BackButtonProps = {
   className?: string;

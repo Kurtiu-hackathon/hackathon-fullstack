@@ -1,21 +1,8 @@
-<<<<<<<< HEAD:app/login/_components/login-visual-panel.tsx
-import Image from "next/image";
+﻿import Image from "next/image";
 import Link from "next/link";
-
-import { BackButton } from "@/app/login/_components/back-button";
-
-const supporterStats = [
-  { label: "Apoiadores", value: "214" },
-  { label: "Entrada", value: "R$ 2" },
-  { label: "Voluntário", value: "100%" },
-];
-========
-﻿import Link from "next/link";
 
 import { BackButton } from "./back-button";
 import { supporterStats } from "../_data/supporter-stats";
-import { BrandMark } from "@components/common/brand-mark";
->>>>>>>> development:app/(platform)/login/_components/login-visual-panel.tsx
 
 export function LoginVisualPanel() {
   return (
