@@ -25,8 +25,8 @@ export function Footer() {
               Apoio
             </h3>
 
-            <a href="https://apoia.se/soujunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
-              Apoia.se
+            <a href="https://apoia.se/soujunior" target="_blank" rel="noopener noreferrer" className="text-background/60 no-underline hover:text-background">
+              Apoia.se<span className="sr-only"> (abre em nova janela)</span>
             </a>
             <a href="#niveis" className="text-background/60 no-underline hover:text-background">
               Níveis de apoio
@@ -41,14 +41,14 @@ export function Footer() {
               Comunidade
             </h3>
 
-            <a href="https://discord.com/invite/soujunior-community-759176734460346423" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
-              Discord
+            <a href="https://discord.com/invite/soujunior-community-759176734460346423" target="_blank" rel="noopener noreferrer" className="text-background/60 no-underline hover:text-background">
+              Discord<span className="sr-only"> (abre em nova janela)</span>
             </a>
-            <a href="https://chat.whatsapp.com/JJzCMlqMKlw1YOhOk7QB3W" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
-              WhatsApp
+            <a href="https://chat.whatsapp.com/JJzCMlqMKlw1YOhOk7QB3W" target="_blank" rel="noopener noreferrer" className="text-background/60 no-underline hover:text-background">
+              WhatsApp<span className="sr-only"> (abre em nova janela)</span>
             </a>
-            <a href="https://github.com/SouJunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
-              GitHub
+            <a href="https://github.com/SouJunior" target="_blank" rel="noopener noreferrer" className="text-background/60 no-underline hover:text-background">
+              GitHub<span className="sr-only"> (abre em nova janela)</span>
             </a>
           </div>
 
@@ -57,16 +57,16 @@ export function Footer() {
               SouJunior
             </h3>
 
-            <a href="https://soujunior.tech" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
-              soujunior.tech
+            <a href="https://soujunior.tech" target="_blank" rel="noopener noreferrer" className="text-background/60 no-underline hover:text-background">
+              soujunior.tech<span className="sr-only"> (abre em nova janela)</span>
             </a>
-            <a href="https://stars.soujunior.tech/" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
-              Seja voluntário
+            <a href="https://stars.soujunior.tech/" target="_blank" rel="noopener noreferrer" className="text-background/60 no-underline hover:text-background">
+              Seja voluntário<span className="sr-only"> (abre em nova janela)</span>
             </a>
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-5 text-[11px] text-background/40">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-5 text-[11px] text-background/55">
           <span>© 2026 SouJunior · números ilustrativos</span>
           <span>apoia.se/soujunior</span>
         </div>

@@ -82,7 +82,11 @@ export default function LoadingPage() {
         </div>
       </header>
 
-      <main className="relative flex flex-1 flex-col items-center justify-center gap-10 px-6 py-16 text-center lg:px-10">
+      <div role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {STEPS[stepIndex]} — {pctRounded}%
+      </div>
+
+      <main id="main-content" className="relative flex flex-1 flex-col items-center justify-center gap-10 px-6 py-16 text-center lg:px-10">
         <Blueprint className="p-6 sm:p-8">
           <div className="relative overflow-hidden">
             <div

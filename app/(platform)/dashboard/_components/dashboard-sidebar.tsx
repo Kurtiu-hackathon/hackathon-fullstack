@@ -8,6 +8,7 @@ import type { ActiveSection } from "./dashboard-types"
 
 type DashboardSidebarProps = {
   open: boolean
+  isMobile: boolean
   onClose: () => void
   activeSection: ActiveSection
   onNavigate: (section: ActiveSection) => void
@@ -22,6 +23,7 @@ const NAV_PAINEL: { id: ActiveSection; label: string }[] = [
 
 export function DashboardSidebar({
   open,
+  isMobile,
   onClose,
   activeSection,
   onNavigate,
@@ -38,6 +40,10 @@ export function DashboardSidebar({
       )}
 
       <aside
+        id="dashboard-sidebar"
+        aria-label="Painel de navegação"
+        aria-hidden={isMobile && !open}
+        inert={isMobile && !open}
         className={[
           "fixed inset-y-0 left-0 z-50 w-72 border-r border-primary-foreground/10 bg-foreground text-background transition-transform duration-200",
           open ? "translate-x-0" : "-translate-x-full",
@@ -89,7 +95,7 @@ export function DashboardSidebar({
           </div>
 
           <nav className="mt-10" aria-label="Navegação do painel">
-            <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-background/40">
+            <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-background/55">
               Painel
             </p>
 
@@ -99,6 +105,7 @@ export function DashboardSidebar({
                   key={id}
                   type="button"
                   onClick={() => onNavigate(id)}
+                  aria-current={activeSection === id ? "page" : undefined}
                   className={cn(
                     "block w-full px-3 py-[11px] text-left text-[14px] transition-colors",
                     activeSection === id
@@ -111,7 +118,7 @@ export function DashboardSidebar({
               ))}
             </div>
 
-            <p className="mb-2.5 mt-[18px] text-[10px] font-semibold uppercase tracking-[0.2em] text-background/40">
+            <p className="mb-2.5 mt-[18px] text-[10px] font-semibold uppercase tracking-[0.2em] text-background/55">
               Apoio
             </p>
 
@@ -119,10 +126,11 @@ export function DashboardSidebar({
               <a
                 href="https://apoia.se/soujunior"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="block px-3 py-[11px] text-[14px] text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Minha contribuição
+                <span className="sr-only"> (abre em nova janela)</span>
               </a>
             </div>
           </nav>

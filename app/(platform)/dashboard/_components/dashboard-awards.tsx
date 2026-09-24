@@ -35,6 +35,11 @@ export function DashboardAwards() {
         {AWARDS.map((award) => (
           <div
             key={award.name}
+            aria-label={
+              award.unlocked
+                ? award.name
+                : `${award.name} — bloqueado: ${award.remaining ?? award.description}`
+            }
             className={cn(
               "border-b border-r border-border p-[20px_18px]",
               !award.unlocked && "opacity-45"

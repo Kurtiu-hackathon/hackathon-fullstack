@@ -59,7 +59,7 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
         </span>
       </header>
 
-      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-start gap-12 px-6 py-16 lg:flex-row lg:items-center lg:gap-16 lg:px-10">
+      <main id="main-content" className="mx-auto flex w-full max-w-7xl flex-1 flex-col items-start gap-12 px-6 py-16 lg:flex-row lg:items-center lg:gap-16 lg:px-10">
         <div className="flex flex-1 flex-col gap-7">
           <div className="flex items-center gap-2.5">
             <span className="size-2 shrink-0 bg-primary" aria-hidden="true" />
@@ -162,10 +162,13 @@ export default function ErrorPage({ error, retry }: ErrorPageProps) {
           SouJunior — comunidade voluntária de tecnologia
         </span>
         <a
-          href="#"
+          href="https://discord.com/invite/soujunior-community-759176734460346423"
+          target="_blank"
+          rel="noreferrer"
           className="text-xs text-primary hover:opacity-70"
         >
           Falar com o time no Discord
+          <span className="sr-only"> (abre em nova janela)</span>
         </a>
       </footer>
     </div>

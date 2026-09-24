@@ -62,10 +62,11 @@ export function DashboardEvents() {
         <a
           href="https://discord.gg/soujunior"
           target="_blank"
-          rel="noopener"
+          rel="noopener noreferrer"
           className="text-[12.5px] text-primary no-underline hover:underline"
         >
-          Ver agenda no Discord →
+          Ver agenda no Discord <span aria-hidden="true">→</span>
+          <span className="sr-only"> (abre em nova janela)</span>
         </a>
       </div>
 
@@ -105,6 +106,7 @@ export function DashboardEvents() {
 
             <button
               type="button"
+              aria-label={`${event.cta}: ${event.title}`}
               className="border border-foreground bg-transparent px-2.5 py-2.5 font-heading text-[12.5px] uppercase tracking-[0.04em] text-foreground transition-colors hover:bg-primary hover:border-primary hover:text-primary-foreground"
             >
               {event.cta}

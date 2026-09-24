@@ -63,10 +63,11 @@ export function Header() {
           <a
             href="https://apoia.se/soujunior"
             target="_blank"
-            rel="noopener"
+            rel="noopener noreferrer"
             className="relative inline-flex items-center bg-primary px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] text-primary-foreground no-underline uppercase hover:opacity-90"
           >
             Apoiar agora
+            <span className="sr-only"> (abre em nova janela)</span>
           </a>
         </div>
       </div>

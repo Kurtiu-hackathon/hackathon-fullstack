@@ -17,6 +17,18 @@ type LoginPageProps = {
 
 export const metadata: Metadata = {
   title: "Acesso",
+  description: "Acesse o painel do apoiador SouJunior.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+  openGraph: {
+    images: [{ url: "/SEO/imagem_de_compartilhamento_tela_de_login.png" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/SEO/imagem_de_compartilhamento_tela_de_login.png"],
+  },
 };
 
 function firstParam(value?: string | string[]) {
@@ -31,7 +43,7 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   const next = requestedNext ? getSafeRedirectPath(requestedNext) : undefined;
 
   return (
-    <main className="grid min-h-svh items-start bg-background lg:grid-cols-2">
+    <main id="main-content" className="grid min-h-svh items-start bg-background lg:grid-cols-2">
       <LoginVisualPanel />
       <LoginFormPanel
         content={pageContent[mode]}

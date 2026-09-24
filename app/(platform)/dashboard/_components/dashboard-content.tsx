@@ -1,28 +1,37 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 
+import { useIsMobile } from "@hooks/use-mobile"
 import { DashboardHeader } from "./dashboard-header"
 import { DashboardSidebar } from "./dashboard-sidebar"
 import { DashboardOverview } from "./dashboard-overview"
 import { DashboardEvents } from "./dashboard-events"
 import { DashboardAwards } from "./dashboard-awards"
 import { DashboardForum } from "./dashboard-forum"
-import type { ActiveSection } from "./dashboard-types"
+import { SECTION_TITLES, type ActiveSection } from "./dashboard-types"
 
 export function DashboardContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [activeSection, setActiveSection] = useState<ActiveSection>("overview")
+  const menuButtonRef = useRef<HTMLButtonElement>(null)
+  const isMobile = useIsMobile()
 
   function navigate(section: ActiveSection) {
     setActiveSection(section)
     setSidebarOpen(false)
+    menuButtonRef.current?.focus()
   }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <div aria-live="polite" aria-atomic="true" className="sr-only">
+        {SECTION_TITLES[activeSection]}
+      </div>
+
       <DashboardSidebar
         open={sidebarOpen}
+        isMobile={isMobile}
         onClose={() => setSidebarOpen(false)}
         activeSection={activeSection}
         onNavigate={navigate}
@@ -30,6 +39,8 @@ export function DashboardContent() {
 
       <div className="lg:pl-72">
         <DashboardHeader
+          menuButtonRef={menuButtonRef}
+          sidebarOpen={sidebarOpen}
           onMenuClick={() => setSidebarOpen(true)}
           activeSection={activeSection}
         />

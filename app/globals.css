@@ -203,7 +203,7 @@
   h4 { font-size: 20px; }
   h5 { font-size: 16px; }
   h6 { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; }
-  a { color: var(--color-accent); text-underline-offset: 3px; }
+  a { color: var(--accent-700); text-underline-offset: 3px; }
   :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
   ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
   html { @apply font-sans; }

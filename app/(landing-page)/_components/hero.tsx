@@ -43,10 +43,11 @@ export function Hero() {
               <a
                 href="https://apoia.se/soujunior"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center bg-primary px-6 py-3.5 text-[13px] font-bold tracking-[0.04em] text-primary-foreground no-underline uppercase hover:opacity-90"
               >
                 Apoiar com R$ 2
+                <span className="sr-only"> (abre em nova janela)</span>
               </a>
 
               <a
@@ -95,11 +96,18 @@ export function Hero() {
               Meta mensal
             </span>
 
-            <div className="relative h-4 flex-1 min-w-40 border border-background/20 bg-background/5">
+            <div
+              role="progressbar"
+              aria-valuenow={70}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-label="Meta mensal: 70% atingida"
+              className="relative h-4 flex-1 min-w-40 border border-background/20 bg-background/5"
+            >
               <div
+                aria-hidden="true"
                 className="absolute inset-y-0 left-0 bg-primary"
                 style={{ width: "70%" }}
-                aria-label="70% da meta atingida"
               />
             </div>
 

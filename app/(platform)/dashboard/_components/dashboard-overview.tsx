@@ -52,7 +52,7 @@ export function DashboardOverview() {
           {MONTHS.map((m, i) => (
             <div
               key={i}
-              title={m.label}
+              aria-label={m.label}
               className={cn(
                 "h-[34px] border border-border",
                 m.filled ? "bg-primary" : "bg-transparent"
