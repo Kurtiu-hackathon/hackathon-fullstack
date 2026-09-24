@@ -57,6 +57,7 @@ Definidos em `app/globals.css`. Sempre use tokens — nunca valores hexadecimais
 | `--color-surface` | `#e9e9ea` | Fundo de inputs e cards |
 | `--color-text` | `#1d1f20` | Texto principal |
 | `--color-accent` / `--primary` | `#5980a6` | Único acento permitido |
+| `--accent-700` | `#1a4fb3` | Variante escura do acento — cor padrão de links (`a { color }`) para garantir contraste WCAG AA (≈ 6,9:1 em fundo claro) |
 | `--color-divider` | 16% opacidade do texto | Bordas hairline |
 | `--font-heading` | Barlow Condensed 600 | Títulos, botões |
 | `--font-body` | Barlow 400 | Corpo de texto |

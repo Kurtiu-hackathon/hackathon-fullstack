@@ -61,4 +61,28 @@ describe("getAuthErrorMessage", () => {
       "Não foi possível concluir a autenticação. Tente novamente.",
     );
   });
+
+  it("retorna mensagem para email_address_invalid", () => {
+    expect(getAuthErrorMessage(makeError("email_address_invalid"))).toBe(
+      "O endereço de e-mail informado não é válido.",
+    );
+  });
+
+  it("retorna mensagem para email_address_not_authorized", () => {
+    expect(getAuthErrorMessage(makeError("email_address_not_authorized"))).toBe(
+      "Este e-mail não está autorizado pelo serviço de envio.",
+    );
+  });
+
+  it("retorna mensagem para email_provider_disabled", () => {
+    expect(getAuthErrorMessage(makeError("email_provider_disabled"))).toBe(
+      "O cadastro por e-mail está desabilitado.",
+    );
+  });
+
+  it("retorna mensagem para validation_failed", () => {
+    expect(getAuthErrorMessage(makeError("validation_failed"))).toBe(
+      "Verifique os dados informados.",
+    );
+  });
 });

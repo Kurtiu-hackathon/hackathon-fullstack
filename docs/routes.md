@@ -82,3 +82,14 @@ Protegido por `app/dev/layout.tsx` que retorna `notFound()` quando `NODE_ENV !==
 ## Rota `/dev/design-system`
 
 Catálogo interativo com todos os 63 componentes shadcn, tokens do sistema Industry e variantes disponíveis. Acessível apenas em desenvolvimento (`npm run dev`).
+
+## Rotas de metadados SEO
+
+Next.js gera automaticamente estes arquivos a partir das funções default exportadas pelos módulos abaixo. Não são Route Handlers — não aparecem em `app/api/`.
+
+| Arquivo | URL gerada | Descrição |
+|---------|-----------|-----------|
+| `app/robots.ts` | `/robots.txt` | Permite `/`; bloqueia `/api/`, `/dev/` e `/dashboard` para crawlers |
+| `app/sitemap.ts` | `/sitemap.xml` | Sitemap com a landing page (`/`) — URL base definida por `NEXT_PUBLIC_SITE_URL` |
+
+O fallback quando `NEXT_PUBLIC_SITE_URL` não está definido é `https://soujunior.tech`.

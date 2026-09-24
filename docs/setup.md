@@ -31,8 +31,10 @@ cp .env.example .env.local
 
 | Variável | Finalidade | Exemplo (seguro) |
 |----------|------------|-----------------|
+| `NEXT_PUBLIC_SITE_URL` | URL pública do projeto — usada em sitemap.xml e robots.txt | `https://soujunior.tech` |
 | `NEXT_PUBLIC_SUPABASE_URL` | URL da instância Supabase | `https://xxxx.supabase.co` |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Chave pública (anon key) do Supabase | `sb_publishable_...` |
+| `SUPABASE_SECRET_KEY` | Chave de serviço do Supabase (acesso irrestrito ao DB) | `sb_secret_...` |
 | `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_ID` | Client ID do OAuth Google | `xxxxx.apps.googleusercontent.com` |
 | `SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET` | Client Secret do OAuth Google | `GOCSPX-...` |
 

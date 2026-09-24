@@ -111,6 +111,22 @@ Use os aliases nos imports em vez de caminhos relativos longos (`../../lib/auth/
 
 Em CI, o Playwright usa `retries: 2` e `workers: 1`. O `webServer` do config inicia `npm run dev` automaticamente antes dos testes se o servidor não estiver rodando.
 
+## Deploy — Vercel
+
+Configurado via `vercel.json`:
+
+| Configuração | Valor |
+|-------------|-------|
+| Node.js runtime | 20.x |
+| Timeout máximo das Route Handlers (`/api/**`) | 10 segundos |
+| `X-Frame-Options` | `DENY` |
+| `X-Content-Type-Options` | `nosniff` |
+| `Referrer-Policy` | `strict-origin-when-cross-origin` |
+| `Permissions-Policy` | câmera, microfone e geolocalização bloqueados |
+| `Strict-Transport-Security` | 2 anos, `includeSubDomains`, `preload` |
+
+Os headers de segurança são aplicados a todas as rotas (`source: "/(.*)"`) via `vercel.json`.
+
 ## Decisões técnicas identificáveis no código
 
 | Decisão | Evidência |
