@@ -25,28 +25,28 @@ export function Header() {
         >
           <a
             href="#causa"
-            className="font-body text-sm font-medium text-foreground no-underline hover:text-accent-700"
+            className="text-sm font-medium text-foreground no-underline hover:opacity-70"
           >
             A causa
           </a>
 
           <a
             href="#impacto"
-            className="font-body text-sm font-medium text-foreground no-underline hover:text-accent-700"
+            className="text-sm font-medium text-foreground no-underline hover:opacity-70"
           >
             Impacto
           </a>
 
           <a
             href="#niveis"
-            className="font-body text-sm font-medium text-foreground no-underline hover:text-accent-700"
+            className="text-sm font-medium text-foreground no-underline hover:opacity-70"
           >
             Níveis
           </a>
 
           <a
             href="#trajetorias"
-            className="font-body text-sm font-medium text-foreground no-underline hover:text-accent-700"
+            className="text-sm font-medium text-foreground no-underline hover:opacity-70"
           >
             Trajetórias
           </a>
@@ -54,8 +54,8 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-3">
           <a
-            href="/login"
-            className="inline-flex border border-foreground px-4 py-2.5 font-heading text-[11px] font-semibold tracking-[0.12em] text-foreground no-underline uppercase hover:border-accent-700 hover:text-accent-700"
+            href="https://apoia.se/soujunior"
+            className="hidden border border-foreground px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] text-foreground no-underline uppercase hover:opacity-70 sm:inline-flex"
           >
             Entrar
           </a>
@@ -63,8 +63,8 @@ export function Header() {
           <a
             href="https://apoia.se/soujunior"
             target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center bg-primary px-4 py-2.5 font-heading text-[11px] font-semibold tracking-[0.12em] text-primary-foreground no-underline uppercase hover:bg-accent-700"
+            rel="noopener"
+            className="relative inline-flex items-center bg-primary px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] text-primary-foreground no-underline uppercase hover:opacity-90"
           >
             Apoiar agora
           </a>
