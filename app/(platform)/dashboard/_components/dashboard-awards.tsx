@@ -31,7 +31,7 @@ export function DashboardAwards() {
         </span>
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,145px),1fr))] border border-border">
+      <div className="grid w-full grid-cols-[repeat(auto-fit,minmax(145px,1fr))] border border-border">
         {AWARDS.map((award) => (
           <div
             key={award.name}
