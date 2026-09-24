@@ -23,9 +23,11 @@ export async function proxy(request: NextRequest) {
             supabaseResponse.cookies.set(name, value, options),
           );
 
-          Object.entries(headers).forEach(([key, value]) =>
-            supabaseResponse.headers.set(key, value),
-          );
+          if (headers) {
+            Object.entries(headers).forEach(([key, value]) =>
+              supabaseResponse.headers.set(key, value),
+            );
+          }
         },
       },
     },

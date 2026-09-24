@@ -3,11 +3,7 @@
 import { useState } from "react"
 
 import { DashboardHeader } from "./dashboard-header"
-import { DashboardSidebar } from "./dashboard-sidebar"
-import { DashboardStats } from "./dashboard-stats"
-import { Forum } from "./forum"
-import { SupportTrack } from "./support-track"
-import { UpcomingEvents } from "./upcoming-events"
+import { DashboardSidebar } from "./dashborad-sidebar"
 
 export function DashboardContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -27,15 +23,7 @@ export function DashboardContent() {
         <main
           id="main-content"
           className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8"
-        >
-          <DashboardStats />
-
-          <SupportTrack />
-
-          <UpcomingEvents />
-
-          <Forum />
-        </main>
+        />
       </div>
     </div>
   )

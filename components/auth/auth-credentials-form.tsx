@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import Link from "next/link";
 import { Controller, type SubmitHandler, type UseFormReturn } from "react-hook-form";
 
@@ -12,7 +10,6 @@ import {
 } from "@/components/auth/auth-form-styles";
 import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
 import { PasswordInput } from "@/components/auth/password-input";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   Field,
   FieldDescription,
@@ -41,8 +38,6 @@ export function AuthCredentialsForm({
   next,
   onSubmit,
 }: AuthCredentialsFormProps) {
-  const [keepSignedIn, setKeepSignedIn] = useState(true);
-
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} noValidate>
       <FieldGroup className="gap-5">
@@ -113,22 +108,7 @@ export function AuthCredentialsForm({
         />
 
         {!isSignUp && (
-          <div className="flex min-h-11 items-center justify-between gap-4 text-sm">
-            <div className="flex items-center gap-3 text-[#416180]">
-              <Checkbox
-                checked={keepSignedIn}
-                onCheckedChange={setKeepSignedIn}
-                disabled={isBusy}
-                aria-label={
-                  keepSignedIn
-                    ? "Sessão persistente ativada"
-                    : "Sessão persistente desativada"
-                }
-                className="border-[#3f7ff0] data-[state=checked]:bg-[#3f7ff0] data-[state=checked]:text-white"
-              />
-              <span>Manter conectado</span>
-            </div>
-
+          <div className="flex min-h-11 items-center justify-end text-sm">
             <Link
               href={{
                 pathname: "/login",

@@ -54,7 +54,7 @@ export function Header() {
 
         <div className="flex shrink-0 items-center gap-3">
           <a
-            href="https://apoia.se/soujunior"
+            href="/login"
             className="hidden border border-foreground px-4 py-2.5 text-[11px] font-semibold tracking-[0.12em] text-foreground no-underline uppercase hover:opacity-70 sm:inline-flex"
           >
             Entrar

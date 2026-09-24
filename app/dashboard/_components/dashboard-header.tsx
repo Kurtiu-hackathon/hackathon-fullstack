@@ -36,7 +36,9 @@ export function DashboardHeader({
         </div>
 
         <a
-          href="#apoio"
+          href="https://apoia.se/soujunior"
+          target="_blank"
+          rel="noopener"
           className="hidden min-h-20 items-center justify-center bg-primary px-8 font-heading text-sm font-semibold text-primary-foreground no-underline transition-colors hover:bg-accent-700 sm:flex"
         >
           AUMENTAR APOIO

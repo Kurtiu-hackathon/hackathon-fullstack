@@ -41,13 +41,13 @@ export function Footer() {
               Comunidade
             </h3>
 
-            <a href="https://discord.gg/soujunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+            <a href="https://discord.com/invite/soujunior-community-759176734460346423" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
               Discord
             </a>
-            <a href="https://whatsapp.com" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+            <a href="https://chat.whatsapp.com/JJzCMlqMKlw1YOhOk7QB3W" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
               WhatsApp
             </a>
-            <a href="https://github.com/soujunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+            <a href="https://github.com/SouJunior" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
               GitHub
             </a>
           </div>
@@ -60,7 +60,7 @@ export function Footer() {
             <a href="https://soujunior.tech" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
               soujunior.tech
             </a>
-            <a href="https://soujunior.tech" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
+            <a href="https://stars.soujunior.tech/" target="_blank" rel="noopener" className="text-background/60 no-underline hover:text-background">
               Seja voluntário
             </a>
           </div>
