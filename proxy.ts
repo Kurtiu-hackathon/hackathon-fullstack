@@ -1,6 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { getDashboardByRole } from "@lib/auth/dashboard-route";
+import { getSafeRedirectPath } from "@lib/auth/safe-redirect";
+
 export async function proxy(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
@@ -34,12 +37,28 @@ export async function proxy(request: NextRequest) {
   );
 
   const { data } = await supabase.auth.getClaims();
+  const claims = data?.claims;
+
+  const isLoginRoute = request.nextUrl.pathname === "/login";
+  const mode = request.nextUrl.searchParams.get("mode");
+
+  if (isLoginRoute && claims && mode !== "update") {
+    const nextParam = request.nextUrl.searchParams.get("next");
+    const safeNext = nextParam ? getSafeRedirectPath(nextParam) : null;
+    const isValidNext = safeNext && !safeNext.startsWith("/login");
+
+    const destination = isValidNext
+      ? safeNext
+      : getDashboardByRole(claims.app_metadata?.role as string | undefined);
+
+    return NextResponse.redirect(new URL(destination, request.nextUrl.origin));
+  }
 
   const isProtectedRoute =
     request.nextUrl.pathname === "/dashboard" ||
     request.nextUrl.pathname.startsWith("/dashboard/");
 
-  if (isProtectedRoute && !data?.claims) {
+  if (isProtectedRoute && !claims) {
     const requestedPath = `${request.nextUrl.pathname}${request.nextUrl.search}`;
     const loginUrl = request.nextUrl.clone();
 

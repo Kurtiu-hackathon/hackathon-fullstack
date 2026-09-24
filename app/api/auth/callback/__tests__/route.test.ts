@@ -1,11 +1,15 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const mockExchangeCodeForSession = vi.hoisted(() => vi.fn());
+const mockGetClaims = vi.hoisted(() => vi.fn());
 
 vi.mock("@lib/supabase/server", () => ({
   createClient: () =>
     Promise.resolve({
-      auth: { exchangeCodeForSession: mockExchangeCodeForSession },
+      auth: {
+        exchangeCodeForSession: mockExchangeCodeForSession,
+        getClaims: mockGetClaims,
+      },
     }),
 }));
 
@@ -14,6 +18,7 @@ import { GET } from "../route";
 describe("GET /api/auth/callback", () => {
   beforeEach(() => {
     mockExchangeCodeForSession.mockResolvedValue({ error: null });
+    mockGetClaims.mockResolvedValue({ data: null });
   });
 
   afterEach(() => {
@@ -71,5 +76,19 @@ describe("GET /api/auth/callback", () => {
     );
     await GET(req);
     expect(mockExchangeCodeForSession).toHaveBeenCalledWith("my-code-123");
+  });
+
+  it("redireciona para /super-admin quando role é SUPER_ADMIN após troca de code", async () => {
+    mockGetClaims.mockResolvedValue({ data: { claims: { app_metadata: { role: "SUPER_ADMIN" } } } });
+    const req = new Request("http://localhost/api/auth/callback?code=valid-code");
+    const res = await GET(req);
+    expect(res.headers.get("location")).toBe("http://localhost/super-admin");
+  });
+
+  it("redireciona para /admin quando role é ADMIN após troca de code", async () => {
+    mockGetClaims.mockResolvedValue({ data: { claims: { app_metadata: { role: "ADMIN" } } } });
+    const req = new Request("http://localhost/api/auth/callback?code=valid-code");
+    const res = await GET(req);
+    expect(res.headers.get("location")).toBe("http://localhost/admin");
   });
 });

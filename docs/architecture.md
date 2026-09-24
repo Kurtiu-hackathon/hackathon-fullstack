@@ -32,7 +32,7 @@ graph TD
 | Grupo | Caminho | Propósito |
 |-------|---------|-----------|
 | `(landing-page)` | `/` | Landing page pública (marketing) |
-| `(platform)` | `/login`, `/dashboard` | Interface do produto |
+| `(platform)` | `/login`, `/dashboard`, `/admin`, `/super-admin`, `/moderator`, `/profile` | Interface do produto |
 | `api/auth` | `/api/auth/callback`, `/api/auth/confirm` | Callbacks de auth (OAuth + OTP) |
 | `dev` | `/dev/*` | Rotas exclusivas de desenvolvimento |
 
