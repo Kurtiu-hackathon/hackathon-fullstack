@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SouJunior
 
-## Getting Started
+Plataforma de mentoria e aceleração de carreira para desenvolvedores juniores brasileiros. Mantida pela própria comunidade — projetos open-source reais, mentoria gratuita e a primeira oportunidade de milhares de devs juniores, começando com R$ 2/mês.
 
-First, run the development server:
+## Status do projeto
+
+| Área | Estado |
+|------|--------|
+| Landing page | Implementada |
+| Autenticação (e-mail + Google OAuth) | Implementada |
+| Dashboard | Em desenvolvimento |
+| Migrações de banco de dados | Não iniciadas |
+| CI/CD | Não configurado |
+
+## Stack
+
+Next.js 16 · React 19 · TypeScript 5 · Tailwind v4 · shadcn/ui (base-nova) · Supabase (Auth + PostgreSQL 17) · Three.js
+
+## Início rápido
 
 ```bash
+# 1. Instalar dependências
+npm install
+
+# 2. Iniciar Supabase local (requer Docker Desktop em execução)
+npx supabase start
+
+# 3. Copiar e preencher variáveis de ambiente
+cp .env.example .env.local
+# edite .env.local com os valores impressos pelo supabase start
+
+# 4. Iniciar o servidor de desenvolvimento
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse `http://localhost:3000`. Veja [`docs/setup.md`](docs/setup.md) para instruções detalhadas.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Documentação
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Documento | Conteúdo |
+|-----------|----------|
+| [`docs/architecture.md`](docs/architecture.md) | Diagrama do sistema, App Router, decisões técnicas |
+| [`docs/setup.md`](docs/setup.md) | Pré-requisitos, variáveis de ambiente, comandos |
+| [`docs/auth.md`](docs/auth.md) | Fluxos de autenticação, proteção de rotas, OAuth |
+| [`docs/routes.md`](docs/routes.md) | Inventário de rotas, APIs, páginas de erro |
+| [`docs/design-system.md`](docs/design-system.md) | Componentes, tokens CSS, regras de estilo |
+| [`docs/database.md`](docs/database.md) | Supabase local, configurações, migrações |
+| [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md) | Regras do sistema Industry (fonte primária de estilo) |
 
-## Learn More
+## Convenções importantes
 
-To learn more about Next.js, take a look at the following resources:
+**`proxy.ts` em vez de `middleware.ts`**
+Next.js 16 renomeou o arquivo de interceptação de requests. A função exportada chama-se `proxy`. Ver [`docs/architecture.md`](docs/architecture.md).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**shadcn base-nova**
+Usa `@base-ui/react` em vez de Radix UI. A API dos componentes difere (prop `render`, atributos `data-*`). Ver [`docs/design-system.md`](docs/design-system.md).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Sistema Industry**
+Design minimalista com cantos retos (`rounded-none`), cards como desenhos de linha, único acento em steel blue. Ícones Lucide com `strokeWidth={1.5}` sempre. Ver [`DESIGN-SYSTEM.md`](DESIGN-SYSTEM.md).
 
-## Deploy on Vercel
+**Idioma**
+Toda a interface, mensagens de erro e e-mails estão em português (pt-BR).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Desenvolvimento
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run dev      # servidor com hot reload
+npm run build    # build de produção
+npm run lint     # ESLint
+```
+
+Preview dos componentes UI: `http://localhost:3000/dev/design-system` (apenas em desenvolvimento).
