@@ -96,7 +96,7 @@ Não use outros padrões de fundo (colunas repetidas, gradientes radiais, `repea
 
 ## Formulários
 
-`react-hook-form` + `zod` + o `Form` do shadcn. Sempre. Sem estado manual de campo, sem validação ad-hoc no submit.
+`react-hook-form` + `zod` + os componentes `Field` do shadcn. Sempre. Sem estado manual de campo, sem validação ad-hoc no submit.
 
 ## Acessibilidade
 
