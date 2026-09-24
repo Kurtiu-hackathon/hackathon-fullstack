@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { Button } from "@components/ui/button";
+import { Input } from "@components/ui/input";
+import { cn } from "@lib/utils";
 
 type PasswordInputProps = React.ComponentProps<typeof Input>;
 

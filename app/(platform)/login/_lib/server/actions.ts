@@ -1,11 +1,11 @@
-"use server";
+﻿"use server";
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-import { getAuthErrorMessage } from "@/lib/auth/error-message";
-import { buildAuthCallbackUrl, getSafeRedirectPath } from "@/lib/auth/safe-redirect";
-import { createClient } from "@/lib/supabase/server";
+import { getAuthErrorMessage } from "@lib/auth/error-message";
+import { buildAuthCallbackUrl, getSafeRedirectPath } from "@lib/auth/safe-redirect";
+import { createClient } from "@lib/supabase/server";
 
 export async function signInAction(
   email: string,

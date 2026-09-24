@@ -1,7 +1,7 @@
-import Image from "next/image"
+﻿import Image from "next/image"
 import { X } from "lucide-react"
 
-import { signOutAction } from "@/lib/server/auth"
+import { signOutAction } from "@lib/server/auth"
 
 type DashboardSidebarProps = {
   open: boolean

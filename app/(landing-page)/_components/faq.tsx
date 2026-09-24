@@ -1,9 +1,9 @@
-import {
+﻿import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion"
+} from "@components/ui/accordion"
 import { faq } from "../_data/faq"
 
 export function Faq() {

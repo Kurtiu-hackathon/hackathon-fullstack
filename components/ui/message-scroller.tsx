@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import * as React from "react"
 import {
@@ -9,7 +9,7 @@ import {
 } from "@shadcn/react/message-scroller"
 import { cn } from "cn"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@components/ui/button"
 import { ArrowDownIcon } from "lucide-react"
 
 function MessageScrollerProvider(

@@ -1,8 +1,8 @@
-import type { EmailOtpType } from "@supabase/supabase-js";
+﻿import type { EmailOtpType } from "@supabase/supabase-js";
 import { type NextRequest, NextResponse } from "next/server";
 
-import { getSafeRedirectPath } from "@/lib/auth/safe-redirect";
-import { createClient } from "@/lib/supabase/server";
+import { getSafeRedirectPath } from "@lib/auth/safe-redirect";
+import { createClient } from "@lib/supabase/server";
 
 function getEmailOtpType(value: string | null): EmailOtpType | null {
   return value === "email" || value === "recovery" ? value : null;

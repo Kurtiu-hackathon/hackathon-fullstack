@@ -1,6 +1,6 @@
-import { cva, type VariantProps } from "class-variance-authority";
+﻿import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 const feedbackMessageVariants = cva("border-l-2 px-4 py-3 text-sm", {
   variants: {

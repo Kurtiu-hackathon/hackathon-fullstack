@@ -1,8 +1,8 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 import { BackButton } from "./back-button";
 import { supporterStats } from "../_data/supporter-stats";
-import { BrandMark } from "@/components/common/brand-mark";
+import { BrandMark } from "@components/common/brand-mark";
 
 export function LoginVisualPanel() {
   return (

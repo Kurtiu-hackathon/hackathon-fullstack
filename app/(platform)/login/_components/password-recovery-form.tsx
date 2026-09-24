@@ -1,6 +1,6 @@
-import { ForgotPasswordForm } from "./forgot-password-form";
+﻿import { ForgotPasswordForm } from "./forgot-password-form";
 import { UpdatePasswordForm } from "./update-password-form";
-import type { PasswordRecoveryMode } from "@/lib/auth/mode";
+import type { PasswordRecoveryMode } from "@lib/auth/mode";
 
 type PasswordRecoveryFormProps = {
   mode: PasswordRecoveryMode;

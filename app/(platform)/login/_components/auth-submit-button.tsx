@@ -1,8 +1,8 @@
-import { ArrowRight, LoaderCircle } from "lucide-react";
+﻿import { ArrowRight, LoaderCircle } from "lucide-react";
 
 import { authSubmitClassName } from "./auth-form-styles";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@components/ui/button";
+import { cn } from "@lib/utils";
 
 type AuthSubmitButtonProps = React.ComponentProps<typeof Button> & {
   isSubmitting: boolean;

@@ -1,4 +1,4 @@
-import type { AuthMode } from "@/lib/auth/mode";
+﻿import type { AuthMode } from "@lib/auth/mode";
 
 export const authErrorMessages: Record<string, string> = {
   email_confirmation:

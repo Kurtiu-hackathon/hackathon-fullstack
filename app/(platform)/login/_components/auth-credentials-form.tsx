@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { Controller, type SubmitHandler, type UseFormReturn } from "react-hook-form";
@@ -16,10 +16,10 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import type { CredentialsAuthMode } from "@/lib/auth/mode";
-import type { AuthFormValues } from "@/lib/validations/auth";
+} from "@components/ui/field";
+import { Input } from "@components/ui/input";
+import type { CredentialsAuthMode } from "@lib/auth/mode";
+import type { AuthFormValues } from "@lib/validations/auth";
 
 type AuthCredentialsFormProps = {
   form: UseFormReturn<AuthFormValues>;

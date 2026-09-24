@@ -1,14 +1,14 @@
-"use client";
+﻿"use client";
 
 import { LoaderCircle } from "lucide-react";
 
 import { AuthCredentialsForm } from "./auth-credentials-form";
 import { FeedbackMessage } from "./feedback-message";
 import { useAuthentication } from "./use-authentication";
-import { Blueprint } from "@/components/ui/blueprint";
-import { Button } from "@/components/ui/button";
-import { FieldSeparator } from "@/components/ui/field";
-import type { CredentialsAuthMode } from "@/lib/auth/mode";
+import { Blueprint } from "@components/ui/blueprint";
+import { Button } from "@components/ui/button";
+import { FieldSeparator } from "@components/ui/field";
+import type { CredentialsAuthMode } from "@lib/auth/mode";
 
 type AuthFormProps = {
   mode: CredentialsAuthMode;

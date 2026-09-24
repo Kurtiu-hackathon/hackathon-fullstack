@@ -1,8 +1,8 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Blueprint } from "@/components/ui/blueprint"
+import { Blueprint } from "@components/ui/blueprint"
 
 const STEPS = [
   "Autenticando sessão",

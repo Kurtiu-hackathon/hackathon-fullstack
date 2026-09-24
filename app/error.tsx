@@ -1,10 +1,10 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Blueprint } from "@/components/ui/blueprint"
-import { Button } from "@/components/ui/button"
+import { Blueprint } from "@components/ui/blueprint"
+import { Button } from "@components/ui/button"
 
 interface ErrorPageProps {
   error: Error & { digest?: string }

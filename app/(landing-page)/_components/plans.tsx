@@ -1,4 +1,4 @@
-import { Blueprint } from "@/components/ui/blueprint"
+﻿import { Blueprint } from "@components/ui/blueprint"
 import { plans } from "../_data/plans"
 
 export function Plans() {

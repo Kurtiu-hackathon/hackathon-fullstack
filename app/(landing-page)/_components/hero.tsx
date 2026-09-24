@@ -1,9 +1,9 @@
-"use client"
+﻿"use client"
 import dynamic from "next/dynamic"
-import { Blueprint } from "@/components/ui/blueprint"
+import { Blueprint } from "@components/ui/blueprint"
 import { heroStats } from "../_data/stats"
 
-const HeroRede = dynamic(() => import("@/components/HeroRede"), { ssr: false })
+const HeroRede = dynamic(() => import("@components/HeroRede"), { ssr: false })
 
 export function Hero() {
   return (

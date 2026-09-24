@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 import { LoginFormPanel } from "./_components/login-form-panel";
 import { LoginVisualPanel } from "./_components/login-visual-panel";
 import { authErrorMessages, pageContent } from "./_data/content";
-import { getAuthMode } from "@/lib/auth/mode";
-import { getSafeRedirectPath } from "@/lib/auth/safe-redirect";
+import { getAuthMode } from "@lib/auth/mode";
+import { getSafeRedirectPath } from "@lib/auth/safe-redirect";
 
 type LoginPageProps = {
   searchParams: Promise<{

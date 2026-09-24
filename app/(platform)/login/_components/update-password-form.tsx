@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -17,12 +17,12 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
+} from "@components/ui/field";
 import { updatePasswordAction } from "@/app/(platform)/login/_lib/server/actions";
 import {
   updatePasswordSchema,
   type UpdatePasswordValues,
-} from "@/lib/validations/auth";
+} from "@lib/validations/auth";
 
 export function UpdatePasswordForm() {
   const [formError, setFormError] = useState<string | null>(null);

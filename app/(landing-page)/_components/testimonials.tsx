@@ -1,5 +1,5 @@
-import Image from "next/image"
-import { Blueprint } from "@/components/ui/blueprint"
+﻿import Image from "next/image"
+import { Blueprint } from "@components/ui/blueprint"
 import { testimonials } from "../_data/testimonials"
 
 export function Testimonials() {

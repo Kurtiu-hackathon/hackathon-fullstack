@@ -1,21 +1,21 @@
-"use client";
+﻿"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { getAuthErrorMessage } from "@/lib/auth/error-message";
-import type { CredentialsAuthMode } from "@/lib/auth/mode";
+import { getAuthErrorMessage } from "@lib/auth/error-message";
+import type { CredentialsAuthMode } from "@lib/auth/mode";
 import {
   buildAuthCallbackUrl,
   getSafeRedirectPath,
-} from "@/lib/auth/safe-redirect";
-import { createClient } from "@/lib/supabase/client";
+} from "@lib/auth/safe-redirect";
+import { createClient } from "@lib/supabase/client";
 import {
   signInSchema,
   signUpSchema,
   type AuthFormValues,
-} from "@/lib/validations/auth";
+} from "@lib/validations/auth";
 import { signInAction, signUpAction } from "@/app/(platform)/login/_lib/server/actions";
 
 type UseAuthenticationOptions = {

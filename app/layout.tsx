@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Barlow, Barlow_Condensed, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { UserProvider } from "@/lib/auth/user-provider";
-import { createClient } from "@/lib/supabase/server";
+import { TooltipProvider } from "@components/ui/tooltip";
+import { UserProvider } from "@lib/auth/user-provider";
+import { createClient } from "@lib/supabase/server";
 
 const barlow = Barlow({
   variable: "--font-barlow",

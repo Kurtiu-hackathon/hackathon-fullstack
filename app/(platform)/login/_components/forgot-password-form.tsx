@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
@@ -15,13 +15,13 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
-} from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+} from "@components/ui/field";
+import { Input } from "@components/ui/input";
 import { forgotPasswordAction } from "@/app/(platform)/login/_lib/server/actions";
 import {
   forgotPasswordSchema,
   type ForgotPasswordValues,
-} from "@/lib/validations/auth";
+} from "@lib/validations/auth";
 
 type ForgotPasswordFormProps = {
   initialError?: string;

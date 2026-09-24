@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@components/ui/button";
+import { cn } from "@lib/utils";
 
 type BackButtonProps = {
   className?: string;
