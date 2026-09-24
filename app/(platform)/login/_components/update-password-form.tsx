@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import { updatePassword } from "@/app/(platform)/login/_lib/server/actions";
 import {
   authInputClassName,
   authLabelClassName,
@@ -18,7 +19,6 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@components/ui/field";
-import { updatePasswordAction } from "@/app/(platform)/login/_lib/server/actions";
 import {
   updatePasswordSchema,
   type UpdatePasswordValues,
@@ -26,16 +26,22 @@ import {
 
 export function UpdatePasswordForm() {
   const [formError, setFormError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
   const form = useForm<UpdatePasswordValues>({
     resolver: zodResolver(updatePasswordSchema),
-    defaultValues: { password: "" },
+    defaultValues: { password: "", passwordConfirmation: "" },
   });
 
-  async function onSubmit(values: UpdatePasswordValues) {
+  function onSubmit(values: UpdatePasswordValues) {
     setFormError(null);
 
-    const error = await updatePasswordAction(values.password);
-    if (error) setFormError(error);
+    startTransition(async () => {
+      const result = await updatePassword(values);
+
+      if (result.status === "error") {
+        setFormError(result.message);
+      }
+    });
   }
 
   return (
@@ -59,7 +65,7 @@ export function UpdatePasswordForm() {
                 autoComplete="new-password"
                 aria-invalid={fieldState.invalid}
                 aria-describedby="new-password-description"
-                disabled={form.formState.isSubmitting}
+                disabled={isPending}
                 className={authInputClassName}
               />
               {!fieldState.invalid && (
@@ -77,11 +83,38 @@ export function UpdatePasswordForm() {
           )}
         />
 
+        <Controller
+          name="passwordConfirmation"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel
+                htmlFor="new-password-confirmation"
+                className={authLabelClassName}
+              >
+                Confirmar nova senha
+              </FieldLabel>
+              <PasswordInput
+                {...field}
+                id="new-password-confirmation"
+                placeholder="Digite a nova senha novamente"
+                autoComplete="new-password"
+                aria-invalid={fieldState.invalid}
+                disabled={isPending}
+                className={authInputClassName}
+              />
+              {fieldState.invalid && (
+                <FieldError errors={[fieldState.error]} />
+              )}
+            </Field>
+          )}
+        />
+
         {formError && <FeedbackMessage role="alert">{formError}</FeedbackMessage>}
 
         <AuthSubmitButton
           type="submit"
-          isSubmitting={form.formState.isSubmitting}
+          isSubmitting={isPending}
           pendingLabel="Salvando..."
         >
           Salvar nova senha

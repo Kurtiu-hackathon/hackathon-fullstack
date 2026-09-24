@@ -59,8 +59,9 @@
   --color-text: #1d1f20;
   --color-accent: #3c7ef9;
   --color-divider: color-mix(in srgb, #1d1f20 16%, transparent);
-  --color-auth-panel: #061226;
-  --color-auth-panel-grid: #1a3454;
+  --color-auth-panel: #080f20;
+  --color-auth-panel-grid: #172640;
+  --color-auth-panel-border: #2a384d;
 
   /* dark navy palette (design dark sections) */
   --navy:      #0b1220;
@@ -141,7 +142,7 @@
   background-image:
     linear-gradient(var(--color-auth-panel-grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--color-auth-panel-grid) 1px, transparent 1px);
-  background-size: 59px 59px;
+  background-size: 70px 70px;
 }
 
 .dark {

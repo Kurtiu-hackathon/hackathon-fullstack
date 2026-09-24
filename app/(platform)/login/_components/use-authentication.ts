@@ -1,22 +1,22 @@
-﻿"use client";
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
-import { getAuthErrorMessage } from "@lib/auth/error-message";
-import type { CredentialsAuthMode } from "@lib/auth/mode";
 import {
-  buildAuthCallbackUrl,
-  getSafeRedirectPath,
-} from "@lib/auth/safe-redirect";
-import { createClient } from "@lib/supabase/client";
+  signInWithEmail,
+  signUpWithEmail,
+  startGoogleSignIn,
+  type AuthActionResult,
+} from "@/app/(platform)/login/_lib/server/actions";
+import type { CredentialsAuthMode } from "@lib/auth/mode";
+import { getSafeRedirectPath } from "@lib/auth/safe-redirect";
 import {
   signInSchema,
   signUpSchema,
   type AuthFormValues,
 } from "@lib/validations/auth";
-import { signInAction, signUpAction } from "@/app/(platform)/login/_lib/server/actions";
 
 type UseAuthenticationOptions = {
   initialError?: string;
@@ -40,27 +40,33 @@ export function useAuthentication({
     initialSuccess ?? null,
   );
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const form = useForm<AuthFormValues>({
     resolver: zodResolver(isSignUp ? signUpSchema : signInSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { email: "", password: "", passwordConfirmation: "" },
   });
 
   async function submitCredentials(values: AuthFormValues) {
     setFormError(null);
     setSuccessMessage(null);
 
-    if (isSignUp) {
-      const result = await signUpAction(values.email, values.password, safeNext);
-      if ("error" in result) {
-        setFormError(result.error);
-        return;
-      }
-      setSuccessMessage(result.success);
-      form.reset();
-    } else {
-      const error = await signInAction(values.email, values.password, safeNext);
-      if (error) setFormError(error);
+    const result = await new Promise<AuthActionResult>((resolve) => {
+      startTransition(async () => {
+        resolve(
+          isSignUp
+            ? await signUpWithEmail(values, safeNext)
+            : await signInWithEmail(values, safeNext),
+        );
+      });
+    });
+
+    if (result.status === "error") {
+      setFormError(result.message);
+      return;
     }
+
+    setSuccessMessage(result.message);
+    form.reset();
   }
 
   async function signInWithGoogle() {
@@ -68,23 +74,23 @@ export function useAuthentication({
     setSuccessMessage(null);
     setIsGoogleLoading(true);
 
-    const { error } = await createClient().auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        redirectTo: buildAuthCallbackUrl(window.location.origin, safeNext),
-      },
-    });
+    startTransition(async () => {
+      const result = await startGoogleSignIn(safeNext);
 
-    if (error) {
-      setFormError(getAuthErrorMessage(error));
-      setIsGoogleLoading(false);
-    }
+      if (result.status === "error") {
+        setFormError(result.message);
+        setIsGoogleLoading(false);
+        return;
+      }
+
+      window.location.assign(result.url);
+    });
   }
 
   return {
     form,
     formError,
-    isBusy: form.formState.isSubmitting || isGoogleLoading,
+    isBusy: form.formState.isSubmitting || isGoogleLoading || isPending,
     isGoogleLoading,
     isSignUp,
     signInWithGoogle,

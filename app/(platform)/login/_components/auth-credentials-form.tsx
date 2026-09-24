@@ -107,6 +107,35 @@ export function AuthCredentialsForm({
           )}
         />
 
+        {isSignUp && (
+          <Controller
+            name="passwordConfirmation"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel
+                  htmlFor={`${mode}-password-confirmation`}
+                  className={authLabelClassName}
+                >
+                  Confirmar senha
+                </FieldLabel>
+                <PasswordInput
+                  {...field}
+                  id={`${mode}-password-confirmation`}
+                  placeholder="Digite a senha novamente"
+                  autoComplete="new-password"
+                  aria-invalid={fieldState.invalid}
+                  disabled={isBusy}
+                  className={authInputClassName}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+        )}
+
         {!isSignUp && (
           <div className="flex min-h-11 items-center justify-end text-sm">
             <Link

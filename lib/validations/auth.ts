@@ -13,20 +13,33 @@ const passwordSchema = z
 export const signInSchema = z.object({
   email: emailSchema,
   password: z.string().min(1, "Informe sua senha."),
+  passwordConfirmation: z.string(),
 });
 
-export const signUpSchema = z.object({
-  email: emailSchema,
-  password: passwordSchema,
-});
+export const signUpSchema = z
+  .object({
+    email: emailSchema,
+    password: passwordSchema,
+    passwordConfirmation: z.string().min(1, "Confirme sua senha."),
+  })
+  .refine(({ password, passwordConfirmation }) => password === passwordConfirmation, {
+    message: "As senhas não coincidem.",
+    path: ["passwordConfirmation"],
+  });
 
 export const forgotPasswordSchema = z.object({
   email: emailSchema,
 });
 
-export const updatePasswordSchema = z.object({
-  password: passwordSchema,
-});
+export const updatePasswordSchema = z
+  .object({
+    password: passwordSchema,
+    passwordConfirmation: z.string().min(1, "Confirme sua nova senha."),
+  })
+  .refine(({ password, passwordConfirmation }) => password === passwordConfirmation, {
+    message: "As senhas não coincidem.",
+    path: ["passwordConfirmation"],
+  });
 
 export type AuthFormValues = z.infer<typeof signUpSchema>;
 export type ForgotPasswordValues = z.infer<typeof forgotPasswordSchema>;

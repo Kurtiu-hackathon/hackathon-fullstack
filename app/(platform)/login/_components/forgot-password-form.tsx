@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 
+import { requestPasswordRecovery } from "@/app/(platform)/login/_lib/server/actions";
 import {
   authInputClassName,
   authLabelClassName,
@@ -17,7 +18,6 @@ import {
   FieldLabel,
 } from "@components/ui/field";
 import { Input } from "@components/ui/input";
-import { forgotPasswordAction } from "@/app/(platform)/login/_lib/server/actions";
 import {
   forgotPasswordSchema,
   type ForgotPasswordValues,
@@ -34,23 +34,26 @@ export function ForgotPasswordForm({
     initialError ?? null,
   );
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
   const form = useForm<ForgotPasswordValues>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: { email: "" },
   });
 
-  async function onSubmit(values: ForgotPasswordValues) {
+  function onSubmit(values: ForgotPasswordValues) {
     setFormError(null);
     setSuccessMessage(null);
 
-    const result = await forgotPasswordAction(values.email);
+    startTransition(async () => {
+      const result = await requestPasswordRecovery(values);
 
-    if ("error" in result) {
-      setFormError(result.error);
-      return;
-    }
+      if (result.status === "error") {
+        setFormError(result.message);
+        return;
+      }
 
-    setSuccessMessage(result.success);
+      setSuccessMessage(result.message);
+    });
   }
 
   return (
@@ -74,7 +77,7 @@ export function ForgotPasswordForm({
                 placeholder="voce@email.com"
                 autoComplete="email"
                 aria-invalid={fieldState.invalid}
-                disabled={form.formState.isSubmitting}
+                disabled={isPending}
                 className={authInputClassName}
               />
               {fieldState.invalid && (
@@ -93,7 +96,7 @@ export function ForgotPasswordForm({
 
         <AuthSubmitButton
           type="submit"
-          isSubmitting={form.formState.isSubmitting}
+          isSubmitting={isPending}
           pendingLabel="Enviando..."
         >
           Enviar link
