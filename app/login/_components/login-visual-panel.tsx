@@ -1,13 +1,8 @@
 import Link from "next/link";
 
-import { BackButton } from "@/components/auth/back-button";
+import { BackButton } from "./back-button";
+import { supporterStats } from "../_data/supporter-stats";
 import { BrandMark } from "@/components/common/brand-mark";
-
-const supporterStats = [
-  { label: "Apoiadores", value: "214" },
-  { label: "Entrada", value: "R$ 2" },
-  { label: "Voluntário", value: "100%" },
-];
 
 export function LoginVisualPanel() {
   return (

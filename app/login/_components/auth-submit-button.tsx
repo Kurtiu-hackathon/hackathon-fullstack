@@ -1,6 +1,6 @@
 import { ArrowRight, LoaderCircle } from "lucide-react";
 
-import { authSubmitClassName } from "@/components/auth/auth-form-styles";
+import { authSubmitClassName } from "./auth-form-styles";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 

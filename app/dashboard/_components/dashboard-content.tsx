@@ -3,7 +3,7 @@
 import { useState } from "react"
 
 import { DashboardHeader } from "./dashboard-header"
-import { DashboardSidebar } from "./dashborad-sidebar"
+import { DashboardSidebar } from "./dashboard-sidebar"
 
 export function DashboardContent() {
   const [sidebarOpen, setSidebarOpen] = useState(false)

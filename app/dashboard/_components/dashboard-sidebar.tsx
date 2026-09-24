@@ -1,6 +1,8 @@
 import Image from "next/image"
 import { X } from "lucide-react"
 
+import { signOutAction } from "@/lib/server/auth"
+
 type DashboardSidebarProps = {
   open: boolean
   onClose: () => void
@@ -155,12 +157,14 @@ export function DashboardSidebar({
               </p>
             </div>
 
-            <button
-              type="button"
-              className="mt-8 font-body text-sm text-background/60 transition-colors hover:text-accent-700"
-            >
-              Sair da conta
-            </button>
+            <form action={signOutAction}>
+              <button
+                type="submit"
+                className="mt-8 font-body text-sm text-background/60 transition-colors hover:text-accent-700"
+              >
+                Sair da conta
+              </button>
+            </form>
           </div>
         </div>
       </aside>

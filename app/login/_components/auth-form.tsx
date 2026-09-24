@@ -2,9 +2,9 @@
 
 import { LoaderCircle } from "lucide-react";
 
-import { AuthCredentialsForm } from "@/components/auth/auth-credentials-form";
-import { FeedbackMessage } from "@/components/auth/feedback-message";
-import { useAuthentication } from "@/components/auth/use-authentication";
+import { AuthCredentialsForm } from "./auth-credentials-form";
+import { FeedbackMessage } from "./feedback-message";
+import { useAuthentication } from "./use-authentication";
 import { Blueprint } from "@/components/ui/blueprint";
 import { Button } from "@/components/ui/button";
 import { FieldSeparator } from "@/components/ui/field";

@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -17,6 +16,7 @@ import {
   signUpSchema,
   type AuthFormValues,
 } from "@/lib/validations/auth";
+import { signInAction, signUpAction } from "@/app/login/_lib/server/actions";
 
 type UseAuthenticationOptions = {
   initialError?: string;
@@ -31,7 +31,6 @@ export function useAuthentication({
   mode,
   next,
 }: UseAuthenticationOptions) {
-  const router = useRouter();
   const isSignUp = mode === "signup";
   const safeNext = getSafeRedirectPath(next);
   const [formError, setFormError] = useState<string | null>(
@@ -50,40 +49,18 @@ export function useAuthentication({
     setFormError(null);
     setSuccessMessage(null);
 
-    const supabase = createClient();
-
     if (isSignUp) {
-      const { data, error } = await supabase.auth.signUp({
-        email: values.email,
-        password: values.password,
-        options: {
-          emailRedirectTo: buildAuthCallbackUrl(window.location.origin, safeNext),
-        },
-      });
-
-      if (error) {
-        setFormError(getAuthErrorMessage(error));
+      const result = await signUpAction(values.email, values.password, safeNext);
+      if ("error" in result) {
+        setFormError(result.error);
         return;
       }
-
-      if (!data.session) {
-        setSuccessMessage(
-          "Conta criada. Verifique seu e-mail para confirmar o cadastro.",
-        );
-        form.reset();
-        return;
-      }
+      setSuccessMessage(result.success);
+      form.reset();
     } else {
-      const { error } = await supabase.auth.signInWithPassword(values);
-
-      if (error) {
-        setFormError(getAuthErrorMessage(error));
-        return;
-      }
+      const error = await signInAction(values.email, values.password, safeNext);
+      if (error) setFormError(error);
     }
-
-    router.replace(safeNext);
-    router.refresh();
   }
 
   async function signInWithGoogle() {

@@ -7,9 +7,9 @@ import { Controller, useForm } from "react-hook-form";
 import {
   authInputClassName,
   authLabelClassName,
-} from "@/components/auth/auth-form-styles";
-import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
-import { FeedbackMessage } from "@/components/auth/feedback-message";
+} from "./auth-form-styles";
+import { AuthSubmitButton } from "./auth-submit-button";
+import { FeedbackMessage } from "./feedback-message";
 import {
   Field,
   FieldError,
@@ -17,9 +17,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { getAuthErrorMessage } from "@/lib/auth/error-message";
-import { buildAuthCallbackUrl } from "@/lib/auth/safe-redirect";
-import { createClient } from "@/lib/supabase/client";
+import { forgotPasswordAction } from "@/app/login/_lib/server/actions";
 import {
   forgotPasswordSchema,
   type ForgotPasswordValues,
@@ -45,24 +43,14 @@ export function ForgotPasswordForm({
     setFormError(null);
     setSuccessMessage(null);
 
-    const { error } = await createClient().auth.resetPasswordForEmail(
-      values.email,
-      {
-        redirectTo: buildAuthCallbackUrl(
-          window.location.origin,
-          "/login?mode=update",
-        ),
-      },
-    );
+    const result = await forgotPasswordAction(values.email);
 
-    if (error) {
-      setFormError(getAuthErrorMessage(error));
+    if ("error" in result) {
+      setFormError(result.error);
       return;
     }
 
-    setSuccessMessage(
-      "Enviamos um link de recuperação. Verifique a caixa de entrada e o spam.",
-    );
+    setSuccessMessage(result.success);
   }
 
   return (

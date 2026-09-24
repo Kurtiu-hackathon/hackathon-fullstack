@@ -1,9 +1,10 @@
 import Link from "next/link";
 
-import { AuthForm } from "@/components/auth/auth-form";
-import { authTextLinkClassName } from "@/components/auth/auth-form-styles";
-import { BackButton } from "@/components/auth/back-button";
-import { PasswordRecoveryForm } from "@/components/auth/password-recovery-form";
+import { AuthForm } from "./auth-form";
+import { authTextLinkClassName } from "./auth-form-styles";
+import { BackButton } from "./back-button";
+import { PasswordRecoveryForm } from "./password-recovery-form";
+import { communityLinks } from "../_data/community-links";
 import { BrandMark } from "@/components/common/brand-mark";
 import type { AuthMode } from "@/lib/auth/mode";
 
@@ -18,15 +19,6 @@ type LoginFormPanelProps = {
   next?: string;
   passwordUpdated: boolean;
 };
-
-const communityLinks = [
-  {
-    href: "https://discord.gg/soujunior-community-759176734460346423",
-    label: "Discord",
-  },
-  { href: "https://github.com/SouJunior", label: "GitHub" },
-  { href: "https://apoia.se/soujunior", label: "Apoia.se" },
-];
 
 export function LoginFormPanel({
   content,

@@ -7,9 +7,9 @@ import {
   authInputClassName,
   authLabelClassName,
   authTextLinkClassName,
-} from "@/components/auth/auth-form-styles";
-import { AuthSubmitButton } from "@/components/auth/auth-submit-button";
-import { PasswordInput } from "@/components/auth/password-input";
+} from "./auth-form-styles";
+import { AuthSubmitButton } from "./auth-submit-button";
+import { PasswordInput } from "./password-input";
 import {
   Field,
   FieldDescription,
