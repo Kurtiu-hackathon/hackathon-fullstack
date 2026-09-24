@@ -101,6 +101,24 @@ npm run dev
 | `npm run test:run` | Executa testes unitários uma vez e encerra (CI) |
 | `npm run test:e2e` | Executa testes E2E com Playwright (requer servidor em execução) |
 | `npm run typecheck` | Verificação de tipos TypeScript sem emitir arquivos (`tsc --noEmit`) |
+| `npm run seed:users` | Cria os 4 usuários de desenvolvimento no Supabase via Admin API (ver abaixo) |
+
+## Seed de usuários de desenvolvimento
+
+O script `scripts/seed-users.ts` cria 4 usuários com e-mail já confirmado usando a Supabase Admin API (`supabase.auth.admin.createUser`). Requer `SUPABASE_SECRET_KEY` no `.env.local`.
+
+```bash
+npm run seed:users
+```
+
+| E-mail | Senha | Role |
+|--------|-------|------|
+| `admin@admin.com` | `12345678` | `ADMIN` |
+| `super@admin.com` | `12345678` | `SUPER_ADMIN` |
+| `user@moderator.com` | `12345678` | `MODERATOR` |
+| `user@user.com` | `12345678` | _(usuário comum)_ |
+
+Se o usuário já existir, o script avisa e continua sem erro.
 
 ## Parar o Supabase local
 

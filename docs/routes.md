@@ -7,6 +7,9 @@
 | `/` | Page | Pública | `app/(landing-page)/page.tsx` |
 | `/login` | Page | Pública | `app/(platform)/login/page.tsx` |
 | `/dashboard` | Page | Auth obrigatória | `app/(platform)/dashboard/page.tsx` |
+| `/admin` | Page | Role `ADMIN` | `app/(platform)/admin/page.tsx` |
+| `/super-admin` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/page.tsx` |
+| `/moderator` | Page | Role `MODERATOR` | `app/(platform)/moderator/page.tsx` |
 | `/api/auth/callback` | Route Handler | Pública | `app/api/auth/callback/route.ts` |
 | `/api/auth/confirm` | Route Handler | Pública | `app/api/auth/confirm/route.ts` |
 | `/dev/design-system` | Page | Dev only | `app/dev/design-system/page.tsx` |
@@ -73,7 +76,7 @@ Layout simples; sem autenticação. Contém a landing page pública com seções
 
 ### `(platform)`
 
-Rotas do produto. Subdiretório `login/` é público; `dashboard/` é protegido por `DashboardLayout` (dupla verificação junto com `proxy.ts`).
+Rotas do produto. Subdiretório `login/` é público; `dashboard/` é protegido por `DashboardLayout` (dupla verificação junto com `proxy.ts`); `admin/`, `super-admin/` e `moderator/` são protegidos por role — ver `docs/auth.md#proteção-de-rotas-por-role`.
 
 ### `dev/`
 

@@ -73,6 +73,40 @@ SUPABASE_AUTH_EXTERNAL_GOOGLE_CLIENT_SECRET=<client-secret>
 
 O callback OAuth retorna para `/api/auth/callback?code=<code>&next=<path>`. O handler em `app/api/auth/callback/route.ts` troca o código por uma sessão via `supabase.auth.exchangeCodeForSession(code)`.
 
+## Roles de usuário
+
+As roles são armazenadas em `app_metadata.role` no JWT do Supabase. Esse campo só pode ser escrito pelo servidor (service role key) — nunca pelo próprio usuário.
+
+| Valor | Rota de console | Acesso |
+|-------|-----------------|--------|
+| `ADMIN` | `/admin` | Painel de administração |
+| `SUPER_ADMIN` | `/super-admin` | Painel de super-administração (inclui auditoria) |
+| `MODERATOR` | `/moderator` | Painel de moderação de conteúdo |
+| _(ausente)_ | `/dashboard` | Usuário comum autenticado |
+
+Para ler a role no servidor:
+
+```ts
+const { data } = await supabase.auth.getClaims();
+const role = data?.claims?.app_metadata?.role as string | undefined;
+```
+
+## Proteção de rotas por role
+
+Cada área de console tem um `layout.tsx` que:
+
+1. Chama `supabase.auth.getClaims()` server-side
+2. Lê `data?.claims?.app_metadata?.role`
+3. Redireciona para `/dashboard` se a role não corresponder (não para `/login`)
+
+```
+app/(platform)/admin/layout.tsx        → role !== "ADMIN"       → redirect("/dashboard")
+app/(platform)/super-admin/layout.tsx  → role !== "SUPER_ADMIN" → redirect("/dashboard")
+app/(platform)/moderator/layout.tsx    → role !== "MODERATOR"   → redirect("/dashboard")
+```
+
+Não há verificação no `proxy.ts` para essas rotas — a proteção é exclusivamente no layout server-side.
+
 ## Proteção de rotas
 
 ### `proxy.ts` — verificação em cada request
