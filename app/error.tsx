@@ -1,6 +1,6 @@
 ﻿"use client"
 
-import { useState, useEffect } from "react"
+import { useState, useSyncExternalStore } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Blueprint } from "@components/ui/blueprint"
@@ -13,17 +13,12 @@ interface ErrorPageProps {
 
 export default function ErrorPage({ error, retry }: ErrorPageProps) {
   const [copied, setCopied] = useState(false)
-  const [time, setTime] = useState("")
   const incidentCode = error.digest
-
-  useEffect(() => {
-    setTime(
-      new Date().toLocaleTimeString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })
-    )
-  }, [])
+  const time = useSyncExternalStore(
+    () => () => {},
+    () => new Date().toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }),
+    () => "",
+  )
 
   function handleCopy() {
     if (!incidentCode) return

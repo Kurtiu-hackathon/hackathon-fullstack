@@ -1,4 +1,5 @@
 ﻿import Image from "next/image"
+import Link from "next/link"
 import { X } from "lucide-react"
 
 import { signOutAction } from "@lib/server/auth"
@@ -32,7 +33,7 @@ export function DashboardSidebar({
       >
         <div className="flex h-full flex-col px-6 py-8">
           <div className="flex items-center justify-between">
-            <a
+            <Link
               href="/"
               aria-label="SouJunior"
               className="no-underline"
@@ -45,7 +46,7 @@ export function DashboardSidebar({
                 priority
                 className="h-auto w-44"
               />
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -126,12 +127,12 @@ export function DashboardSidebar({
                 Minha contribuição
               </a>
 
-              <a
+              <Link
                 href="/"
                 className="block px-5 py-4 font-body text-base text-background/75 no-underline transition-colors hover:bg-primary hover:text-primary-foreground"
               >
                 Landing pública
-              </a>
+              </Link>
             </div>
           </nav>
 

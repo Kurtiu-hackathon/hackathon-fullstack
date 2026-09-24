@@ -89,6 +89,28 @@ O `RootLayout` (`app/layout.tsx`) faz `supabase.auth.getUser()` no servidor para
 | Realtime | Assinaturas em tempo real (habilitado, sem uso atual confirmado) |
 | Edge Functions | Runtime Deno v2 (diretório presente, sem funções implementadas) |
 
+## Path aliases (TypeScript)
+
+Configurados em `tsconfig.json` e espelhados em `vitest.config.ts`:
+
+| Alias | Caminho real |
+|-------|-------------|
+| `@/*` | `./` (raiz do projeto) |
+| `@components/*` | `./components/*` |
+| `@hooks/*` | `./hooks/*` |
+| `@lib/*` | `./lib/*` |
+
+Use os aliases nos imports em vez de caminhos relativos longos (`../../lib/auth/...`).
+
+## Infraestrutura de testes
+
+| Ferramenta | Config | Escopo |
+|------------|--------|--------|
+| **Vitest** | `vitest.config.ts` | Testes unitários — arquivos `**/__tests__/**/*.{ts,tsx}` e `**/*.test.{ts,tsx}`; ambiente Node |
+| **Playwright** | `playwright.config.ts` | Testes E2E — diretório `e2e/`; executa contra `http://localhost:3000` no Chromium |
+
+Em CI, o Playwright usa `retries: 2` e `workers: 1`. O `webServer` do config inicia `npm run dev` automaticamente antes dos testes se o servidor não estiver rodando.
+
 ## Decisões técnicas identificáveis no código
 
 | Decisão | Evidência |

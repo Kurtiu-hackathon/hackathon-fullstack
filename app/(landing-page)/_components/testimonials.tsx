@@ -26,7 +26,7 @@ export function Testimonials() {
               className="flex flex-col gap-5 p-7"
             >
               <blockquote className="flex-1 font-heading text-xl font-semibold leading-7 tracking-tight text-foreground sm:text-2xl">
-                "{item.quote}"
+                &ldquo;{item.quote}&rdquo;
               </blockquote>
 
               <div className="flex items-center gap-3">

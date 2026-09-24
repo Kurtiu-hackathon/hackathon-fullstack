@@ -95,6 +95,10 @@ npm run dev
 | `npm run build` | Build de produção otimizado |
 | `npm run start` | Inicia o servidor em modo produção (requer build anterior) |
 | `npm run lint` | Executa ESLint em todo o projeto |
+| `npm test` | Executa testes unitários em modo watch (Vitest) |
+| `npm run test:run` | Executa testes unitários uma vez e encerra (CI) |
+| `npm run test:e2e` | Executa testes E2E com Playwright (requer servidor em execução) |
+| `npm run typecheck` | Verificação de tipos TypeScript sem emitir arquivos (`tsc --noEmit`) |
 
 ## Parar o Supabase local
 

@@ -99,6 +99,23 @@ O layout `app/(platform)/dashboard/layout.tsx` faz uma segunda verificação ser
 const { user, isLoading } = useUser();
 ```
 
+## Server Actions de autenticação
+
+Todas as operações de auth da página `/login` são executadas por Server Actions em `app/(platform)/login/_lib/server/actions.ts`:
+
+| Função | Descrição |
+|--------|-----------|
+| `signInWithEmail(values, next?)` | Login com e-mail e senha; redireciona para `next` em sucesso |
+| `signUpWithEmail(values, next?)` | Cadastro; retorna mensagem de sucesso se e-mail pendente |
+| `startGoogleSignIn(next?)` | Gera URL do OAuth Google e retorna `{ status: "redirect", url }` |
+| `requestPasswordRecovery(values)` | Envia e-mail de recuperação via `auth.resetPasswordForEmail()` |
+| `updatePassword(values)` | Atualiza senha, faz sign-out e redireciona para `/login?password_updated=1` |
+| `signOut()` | Encerra sessão e redireciona para `/login` |
+
+Cada função valida os dados com os schemas Zod de `lib/validations/auth.ts` antes de chamar o Supabase.
+
+Há também `signOutAction()` em `lib/server/auth.ts` — versão simplificada usada fora do contexto da página de login.
+
 ## Sign-out
 
 Server Action em `lib/server/auth.ts`:
@@ -133,8 +150,12 @@ Mensagens mapeadas para pt-BR em `lib/auth/error-message.ts`. Chegam à página 
 
 ## Segurança: prevenção de open redirect
 
-`getSafeRedirectPath()` em `lib/auth/safe-redirect.ts` valida todo valor de `?next=`:
+`lib/auth/safe-redirect.ts` exporta duas funções:
+
+**`getSafeRedirectPath(value?)`** — valida todo valor de `?next=`:
 
 - Rejeita URLs absolutas (ex.: `https://site-malicioso.com`)
 - Aceita apenas caminhos relativos começando com `/`
 - Fallback para `/dashboard` em caso de valor inválido
+
+**`buildAuthCallbackUrl(origin, next?)`** — constrói a URL de retorno para OAuth e e-mails de confirmação. Usa `getSafeRedirectPath()` internamente para garantir que o `next` inserido no link de e-mail seja sempre um caminho relativo válido.
