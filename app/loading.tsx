@@ -1,8 +1,8 @@
-"use client"
+﻿"use client"
 
 import { useState, useEffect } from "react"
 import Image from "next/image"
-import { Blueprint } from "@/components/ui/blueprint"
+import { Blueprint } from "@components/ui/blueprint"
 
 const STEPS = [
   "Autenticando sessão",
@@ -47,7 +47,7 @@ export default function LoadingPage() {
       className="relative flex min-h-screen flex-col overflow-hidden bg-navy text-white"
       style={
         {
-          "--primary": "#3c7ef9",
+          "--primary": "var(--color-accent)",
           "--border": "rgba(255,255,255,0.12)",
         } as React.CSSProperties
       }
@@ -57,8 +57,8 @@ export default function LoadingPage() {
         className="pointer-events-none absolute inset-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(60,126,249,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(60,126,249,.09) 1px,transparent 1px)",
-          backgroundSize: "56px 56px",
+            "linear-gradient(color-mix(in srgb,var(--primary) 8%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--primary) 8%,transparent) 1px,transparent 1px)",
+          backgroundSize: "64px 64px",
           animation: "sjGridDrift 12s linear infinite",
         }}
       />
@@ -107,7 +107,7 @@ export default function LoadingPage() {
               <div
                 className="absolute left-0 right-0 top-0 h-px"
                 style={{
-                  background: "linear-gradient(90deg,transparent,rgba(60,126,249,.9),transparent)",
+                  background: "linear-gradient(90deg,transparent,color-mix(in srgb,var(--primary) 90%,transparent),transparent)",
                   animation: "sjScanY 2.6s linear infinite",
                 }}
               />
@@ -151,7 +151,7 @@ export default function LoadingPage() {
             className="h-[3px]"
             style={{
               backgroundImage:
-                "repeating-linear-gradient(90deg,rgba(60,126,249,.55) 0 8px,transparent 8px 28px)",
+                "repeating-linear-gradient(90deg,color-mix(in srgb,var(--primary) 55%,transparent) 0 8px,transparent 8px 28px)",
               animation: "sjMarch 1.1s linear infinite",
             }}
           />

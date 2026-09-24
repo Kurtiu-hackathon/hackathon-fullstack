@@ -1,4 +1,4 @@
-import { Blueprint } from "@/components/ui/blueprint"
+﻿import { Blueprint } from "@components/ui/blueprint"
 
 const stats = [
   { value: "1.280", label: "mentorias 1:1 realizadas, sem custo pro júnior" },

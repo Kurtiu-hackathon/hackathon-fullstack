@@ -1,6 +1,6 @@
-import { cva, type VariantProps } from "class-variance-authority";
+﻿import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@lib/utils";
 
 const brandSquareVariants = cva("absolute size-2.5", {
   variants: {

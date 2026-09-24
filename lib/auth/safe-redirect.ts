@@ -20,7 +20,7 @@ export function getSafeRedirectPath(value?: string | null) {
 }
 
 export function buildAuthCallbackUrl(origin: string, next?: string | null) {
-  const callbackUrl = new URL("/auth/callback", origin);
+  const callbackUrl = new URL("/api/auth/callback", origin);
   callbackUrl.searchParams.set("next", getSafeRedirectPath(next));
   return callbackUrl.toString();
 }

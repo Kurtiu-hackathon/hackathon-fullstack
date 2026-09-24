@@ -1,4 +1,4 @@
-import { Blueprint } from "@/components/ui/blueprint"
+﻿import { Blueprint } from "@components/ui/blueprint"
 import {
   Table,
   TableBody,
@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@components/ui/table"
 import { transparencyRows } from "../_data/transparency"
 
 export function Transparency() {

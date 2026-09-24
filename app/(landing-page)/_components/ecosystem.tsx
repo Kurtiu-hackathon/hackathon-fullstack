@@ -3,19 +3,19 @@ const links = [
     name: "Discord",
     description: "Dúvidas, vagas e as mentorias acontecem aqui.",
     cta: "Entrar →",
-    href: "https://discord.gg/soujunior",
+    href: "https://discord.com/invite/soujunior-community-759176734460346423",
   },
   {
     name: "WhatsApp",
     description: "Grupo de avisos: eventos, prazos e novidades.",
     cta: "Receber avisos →",
-    href: "https://whatsapp.com",
+    href: "https://chat.whatsapp.com/JJzCMlqMKlw1YOhOk7QB3W",
   },
   {
     name: "GitHub",
     description: "14 repositórios abertos pra sua primeira contribuição.",
     cta: "Contribuir →",
-    href: "https://github.com/soujunior",
+    href: "https://github.com/SouJunior",
   },
 ] as const
 

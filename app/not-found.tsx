@@ -1,10 +1,10 @@
-"use client"
+﻿"use client"
 
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Blueprint } from "@/components/ui/blueprint"
-import { Button } from "@/components/ui/button"
+import { Blueprint } from "@components/ui/blueprint"
+import { Button } from "@components/ui/button"
 
 export default function NotFound() {
   const pathname = usePathname()
