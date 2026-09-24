@@ -17,7 +17,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { forgotPasswordAction } from "@/app/login/_lib/server/actions";
+import { forgotPasswordAction } from "@/app/(platform)/login/_lib/server/actions";
 import {
   forgotPasswordSchema,
   type ForgotPasswordValues,

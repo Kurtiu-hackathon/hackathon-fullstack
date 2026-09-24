@@ -18,7 +18,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
-import { updatePasswordAction } from "@/app/login/_lib/server/actions";
+import { updatePasswordAction } from "@/app/(platform)/login/_lib/server/actions";
 import {
   updatePasswordSchema,
   type UpdatePasswordValues,

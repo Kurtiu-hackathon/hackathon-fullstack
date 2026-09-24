@@ -16,7 +16,7 @@ import {
   signUpSchema,
   type AuthFormValues,
 } from "@/lib/validations/auth";
-import { signInAction, signUpAction } from "@/app/login/_lib/server/actions";
+import { signInAction, signUpAction } from "@/app/(platform)/login/_lib/server/actions";
 
 type UseAuthenticationOptions = {
   initialError?: string;
