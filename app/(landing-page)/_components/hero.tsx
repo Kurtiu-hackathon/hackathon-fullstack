@@ -1,6 +1,8 @@
 ﻿"use client"
-import dynamic from "next/dynamic"
+import { Button } from "@/components/ui/button"
 import { Blueprint } from "@components/ui/blueprint"
+import dynamic from "next/dynamic"
+import Link from "next/link"
 import { heroStats } from "../_data/stats"
 
 const HeroRede = dynamic(() => import("@components/HeroRede"), { ssr: false })
@@ -56,6 +58,13 @@ export function Hero() {
               >
                 Ver para onde vai o dinheiro →
               </a>
+              <Blueprint className="w-full h-12 sm:hidden">
+                <Link href="/login">
+                  <Button className={"w-full h-full text-lg"} >
+                    Entrar na Comunidade
+                  </Button>
+                </Link>
+              </Blueprint>
             </div>
 
             <div className="mt-14 grid grid-cols-3 border-t border-background/20">
