@@ -125,7 +125,7 @@ export function DashboardForum() {
         ))}
       </div>
 
-      <div className="grid grid-cols-[repeat(auto-fit,minmax(min(100%,300px),1fr))] items-start gap-[clamp(14px,2vw,22px)]">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-[clamp(14px,2vw,22px)]">
         <div className="flex flex-col gap-3">
           {THREADS[activeCommunity].map((t) => (
             <Blueprint
