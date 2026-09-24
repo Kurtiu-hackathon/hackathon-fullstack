@@ -1,8 +1,11 @@
 import type { Metadata } from "next"
 import { redirect } from "next/navigation"
+import { cookies } from "next/headers"
 
 import { createClient } from "@lib/supabase/server"
-import { ProfileLayoutShell } from "./_components/profile-layout-shell"
+import { DashboardShell } from "@components/common/dashboard-shell"
+import { ConsoleShell } from "@components/common/console-shell"
+import { ADMIN_NAV, SUPER_ADMIN_NAV, MODERATOR_NAV } from "@components/common/nav-configs"
 
 export const metadata: Metadata = {
   robots: {
@@ -42,9 +45,56 @@ export default async function ProfileLayout({ children }: ProfileLayoutProps) {
       .map((n) => n[0]?.toUpperCase() ?? "")
       .join("") || email[0]?.toUpperCase() || "U"
 
+  const userProps = { name: userName, initials: userInitials }
+
+  const cookieStore = await cookies()
+  const defaultOpen = cookieStore.get("sidebar_state")?.value !== "false"
+
+  if (role === "ADMIN") {
+    return (
+      <ConsoleShell
+        navGroups={ADMIN_NAV}
+        roleLabel="Admin"
+        user={userProps}
+        defaultOpen={defaultOpen}
+        contentClassName=""
+      >
+        {children}
+      </ConsoleShell>
+    )
+  }
+
+  if (role === "SUPER_ADMIN") {
+    return (
+      <ConsoleShell
+        navGroups={SUPER_ADMIN_NAV}
+        roleLabel="Super Admin"
+        user={userProps}
+        defaultOpen={defaultOpen}
+        contentClassName=""
+      >
+        {children}
+      </ConsoleShell>
+    )
+  }
+
+  if (role === "MODERATOR") {
+    return (
+      <ConsoleShell
+        navGroups={MODERATOR_NAV}
+        roleLabel="Moderador"
+        user={userProps}
+        defaultOpen={defaultOpen}
+        contentClassName=""
+      >
+        {children}
+      </ConsoleShell>
+    )
+  }
+
   return (
-    <ProfileLayoutShell role={role} userName={userName} userInitials={userInitials}>
+    <DashboardShell user={userProps} defaultOpen={defaultOpen} contentClassName="">
       {children}
-    </ProfileLayoutShell>
+    </DashboardShell>
   )
 }

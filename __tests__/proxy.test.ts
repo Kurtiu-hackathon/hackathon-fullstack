@@ -30,7 +30,8 @@ describe("proxy", () => {
       expect(res.headers.get("location")).toBeNull();
     });
 
-    it("permite acesso a /login", async () => {
+    it("permite acesso a /login quando não autenticado", async () => {
+      mockGetClaims.mockResolvedValue({ data: null });
       const res = await proxy(makeRequest("/login"));
       expect(res.headers.get("location")).toBeNull();
     });
@@ -43,6 +44,41 @@ describe("proxy", () => {
     it("não protege /dashboard-admin (não é /dashboard nem começa com /dashboard/)", async () => {
       mockGetClaims.mockResolvedValue({ data: null });
       const res = await proxy(makeRequest("/dashboard-admin"));
+      expect(res.headers.get("location")).toBeNull();
+    });
+  });
+
+  describe("usuário autenticado redireciona ao acessar /login", () => {
+    it("redireciona para /dashboard quando sem role definido", async () => {
+      const res = await proxy(makeRequest("/login"));
+      expect(res.headers.get("location")).toBe("http://localhost/dashboard");
+    });
+
+    it("redireciona para /super-admin quando role é SUPER_ADMIN", async () => {
+      mockGetClaims.mockResolvedValue({ data: { claims: { sub: "user-id", app_metadata: { role: "SUPER_ADMIN" } } } });
+      const res = await proxy(makeRequest("/login"));
+      expect(res.headers.get("location")).toBe("http://localhost/super-admin");
+    });
+
+    it("redireciona para /admin quando role é ADMIN", async () => {
+      mockGetClaims.mockResolvedValue({ data: { claims: { sub: "user-id", app_metadata: { role: "ADMIN" } } } });
+      const res = await proxy(makeRequest("/login"));
+      expect(res.headers.get("location")).toBe("http://localhost/admin");
+    });
+
+    it("redireciona para /moderator quando role é MODERATOR", async () => {
+      mockGetClaims.mockResolvedValue({ data: { claims: { sub: "user-id", app_metadata: { role: "MODERATOR" } } } });
+      const res = await proxy(makeRequest("/login"));
+      expect(res.headers.get("location")).toBe("http://localhost/moderator");
+    });
+
+    it("redireciona para next válido quando parâmetro next está presente", async () => {
+      const res = await proxy(makeRequest("/login", "?next=%2Fprofile"));
+      expect(res.headers.get("location")).toBe("http://localhost/profile");
+    });
+
+    it("não redireciona quando mode=update está presente", async () => {
+      const res = await proxy(makeRequest("/login", "?mode=update"));
       expect(res.headers.get("location")).toBeNull();
     });
   });

@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { Blueprint } from "@components/ui/blueprint"
 import { ACTIVITY_ITEMS } from "@lib/mock/admin/activity"
 import { CHART_BARS_NORMALIZED } from "@lib/mock/admin/chart"
@@ -5,13 +7,8 @@ import { HEALTH_ITEMS, STATUS_COLORS } from "@lib/mock/admin/health"
 import { KPIS } from "@lib/mock/admin/kpis"
 import { PENDING_ITEMS_ADMIN } from "@lib/mock/admin/pending"
 import { TIERS } from "@lib/mock/admin/tiers"
-import type { SuperAdminSection } from "./super-admin-types"
 
-type SuperAdminOverviewProps = {
-  onNavigate: (section: SuperAdminSection) => void
-}
-
-export function SuperAdminOverview({ onNavigate }: SuperAdminOverviewProps) {
+export function SuperAdminOverview() {
   return (
     <div className="flex flex-col gap-5">
       <div
@@ -114,18 +111,17 @@ export function SuperAdminOverview({ onNavigate }: SuperAdminOverviewProps) {
           <h2 className="mb-3 font-heading text-[16px] font-bold">Pendências</h2>
           <div className="flex flex-col">
             {PENDING_ITEMS_ADMIN.map((item) => (
-              <button
+              <Link
                 key={item.label}
-                type="button"
-                onClick={() => onNavigate(item.section as SuperAdminSection)}
-                className="flex items-center justify-between gap-2.5 border-b border-border bg-transparent px-0 py-2.5 text-left text-[13px] text-foreground transition-colors hover:text-primary"
+                href={`/super-admin/${item.section}`}
+                className="flex items-center justify-between gap-2.5 border-b border-border px-0 py-2.5 text-left text-[13px] text-foreground no-underline transition-colors hover:text-primary"
               >
                 <span>{item.label}</span>
                 <span className="flex items-center gap-2">
                   <strong className="font-heading text-[16px]">{item.count}</strong>
                   <span className="text-primary">→</span>
                 </span>
-              </button>
+              </Link>
             ))}
           </div>
         </Blueprint>
@@ -152,13 +148,12 @@ export function SuperAdminOverview({ onNavigate }: SuperAdminOverviewProps) {
         <Blueprint className="p-[18px]">
           <div className="mb-3 flex items-baseline justify-between">
             <h2 className="font-heading text-[16px] font-bold">Atividade recente</h2>
-            <button
-              type="button"
-              onClick={() => onNavigate("audit")}
-              className="bg-transparent text-[12px] text-primary transition-colors hover:underline"
+            <Link
+              href="/super-admin/audit"
+              className="text-[12px] text-primary no-underline transition-colors hover:underline"
             >
               Log completo →
-            </button>
+            </Link>
           </div>
           <div className="flex flex-col">
             {ACTIVITY_ITEMS.map((item) => (

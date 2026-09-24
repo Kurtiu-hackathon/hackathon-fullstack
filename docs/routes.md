@@ -10,6 +10,7 @@
 | `/admin` | Page | Role `ADMIN` | `app/(platform)/admin/page.tsx` |
 | `/super-admin` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/page.tsx` |
 | `/moderator` | Page | Role `MODERATOR` | `app/(platform)/moderator/page.tsx` |
+| `/profile` | Page | Auth obrigatória | `app/(platform)/profile/page.tsx` |
 | `/api/auth/callback` | Route Handler | Pública | `app/api/auth/callback/route.ts` |
 | `/api/auth/confirm` | Route Handler | Pública | `app/api/auth/confirm/route.ts` |
 | `/dev/design-system` | Page | Dev only | `app/dev/design-system/page.tsx` |
@@ -51,7 +52,7 @@ Handler OAuth. Recebe o código de autorização do provedor externo (Google) e 
 | `code` | Sim | Código de autorização OAuth |
 | `next` | Não | Path para redirecionar após autenticação |
 
-**Sucesso:** redireciona para `next` (ou `/dashboard` se ausente/inválido).
+**Sucesso:** redireciona para `next` se fornecido e válido; caso contrário, redireciona para a rota correspondente à role do usuário via `getDashboardByRole()` (ex.: `SUPER_ADMIN` → `/super-admin`, sem role → `/dashboard`).
 **Erro:** redireciona para `/login?error=oauth_callback`.
 
 ### `GET /api/auth/confirm`
@@ -76,7 +77,7 @@ Layout simples; sem autenticação. Contém a landing page pública com seções
 
 ### `(platform)`
 
-Rotas do produto. Subdiretório `login/` é público; `dashboard/` é protegido por `DashboardLayout` (dupla verificação junto com `proxy.ts`); `admin/`, `super-admin/` e `moderator/` são protegidos por role — ver `docs/auth.md#proteção-de-rotas-por-role`.
+Rotas do produto. Subdiretório `login/` é público; `dashboard/` é protegido por `DashboardLayout` (dupla verificação junto com `proxy.ts`); `admin/`, `super-admin/` e `moderator/` são protegidos por role; `profile/` é protegido por auth mas acessível a qualquer role autenticada — ver `docs/auth.md#proteção-de-rotas-por-role`.
 
 ### `dev/`
 

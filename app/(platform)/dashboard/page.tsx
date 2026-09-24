@@ -1,18 +1,22 @@
-import { DashboardContent } from "./_components/dashboard-content"
-import type { ActiveSection } from "./_components/dashboard-types"
+import { redirect } from "next/navigation";
 
-const VALID_SECTIONS = new Set<ActiveSection>(["overview", "events", "awards", "forum"])
+const VALID = new Set(["overview", "events", "awards", "forum"]);
 
 type DashboardPageProps = {
-  searchParams: Promise<{ section?: string }>
-}
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
-  const { section } = await searchParams
-  const initialSection: ActiveSection =
-    section && VALID_SECTIONS.has(section as ActiveSection)
-      ? (section as ActiveSection)
-      : "overview"
+  const params = await searchParams;
+  const raw = Array.isArray(params.section) ? params.section[0] : params.section;
+  const target = raw && VALID.has(raw) ? raw : "overview";
 
-  return <DashboardContent initialSection={initialSection} />
+  const qs = new URLSearchParams();
+  for (const [key, val] of Object.entries(params)) {
+    if (key === "section") continue;
+    if (Array.isArray(val)) val.forEach((v) => qs.append(key, v));
+    else if (val != null) qs.append(key, val as string);
+  }
+
+  redirect(`/dashboard/${target}${qs.size ? `?${qs}` : ""}`);
 }

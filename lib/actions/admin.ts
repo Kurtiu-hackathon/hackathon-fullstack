@@ -78,7 +78,19 @@ export async function listUsers(
     return { status: "error", message: "Não foi possível carregar os usuários." }
   }
 
-  let users = data.users.map(mapUser)
+  // Auth has no search endpoint: scan every page before applying filters.
+  const filtering = search.trim() !== "" || status !== "todos"
+  let allUsers = data.users
+  if (filtering) {
+    for (let next = page + 1; next <= data.lastPage; next++) {
+      const result = await adminClient.auth.admin.listUsers({ page: next, perPage })
+      if (result.error) {
+        return { status: "error", message: "Não foi possível carregar os usuários." }
+      }
+      allUsers = [...allUsers, ...result.data.users]
+    }
+  }
+  let users = allUsers.map(mapUser)
 
   if (search.trim()) {
     const q = search.trim().toLowerCase()

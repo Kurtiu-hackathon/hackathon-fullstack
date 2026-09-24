@@ -91,6 +91,19 @@ const { data } = await supabase.auth.getClaims();
 const role = data?.claims?.app_metadata?.role as string | undefined;
 ```
 
+## Roteamento por role — `getDashboardByRole`
+
+`lib/auth/dashboard-route.ts` exporta `getDashboardByRole(role?)`:
+
+| `role` | Retorna |
+|--------|---------|
+| `"SUPER_ADMIN"` | `/super-admin` |
+| `"ADMIN"` | `/admin` |
+| `"MODERATOR"` | `/moderator` |
+| qualquer outro / `undefined` | `/dashboard` |
+
+Usada por `proxy.ts`, `signInWithEmail`, `app/api/auth/callback` e `app/api/auth/confirm` para determinar o destino do redirect após autenticação bem-sucedida.
+
 ## Proteção de rotas por role
 
 Cada área de console tem um `layout.tsx` que:
@@ -111,7 +124,11 @@ Não há verificação no `proxy.ts` para essas rotas — a proteção é exclus
 
 ### `proxy.ts` — verificação em cada request
 
-O arquivo `proxy.ts` (equivalente ao `middleware.ts` do Next.js 16) intercepta todos os requests. Para rotas `/dashboard` e `/dashboard/*`:
+O arquivo `proxy.ts` (equivalente ao `middleware.ts` do Next.js 16) intercepta todos os requests e trata dois cenários:
+
+**Usuário autenticado em `/login`:** se houver claims válidos e `mode !== "update"`, redireciona para a rota correspondente à role via `getDashboardByRole()`. Se houver um `?next=` válido (caminho relativo que não comece com `/login`), redireciona para ele. O modo `?mode=update` (redefinir senha) é exceção — permite que o usuário permaneça em `/login`.
+
+**Rota `/dashboard` ou `/dashboard/*` sem sessão:**
 
 1. Chama `supabase.auth.getClaims()` — valida o JWT localmente sem round-trip remoto
 2. Se não houver claims: redireciona para `/login?next=<path-original>`
@@ -139,7 +156,7 @@ Todas as operações de auth da página `/login` são executadas por Server Acti
 
 | Função | Descrição |
 |--------|-----------|
-| `signInWithEmail(values, next?)` | Login com e-mail e senha; redireciona para `next` em sucesso |
+| `signInWithEmail(values, next?)` | Login com e-mail e senha; redireciona para `next` se fornecido, senão para a rota da role via `getDashboardByRole()` |
 | `signUpWithEmail(values, next?)` | Cadastro; retorna mensagem de sucesso se e-mail pendente |
 | `startGoogleSignIn(next?)` | Gera URL do OAuth Google e retorna `{ status: "redirect", url }` |
 | `requestPasswordRecovery(values)` | Envia e-mail de recuperação via `auth.resetPasswordForEmail()` |
@@ -164,8 +181,11 @@ await signOutAction(); // chama supabase.auth.signOut() e redireciona para /logi
 |---------|-------------|
 | `lib/supabase/server.ts` | Server Components, Server Actions, Route Handlers |
 | `lib/supabase/client.ts` | Client Components (browser) |
+| `lib/supabase/admin.ts` | Server Actions que precisam da Supabase Admin API (service role key) |
 
 Nunca use o cliente de servidor em Client Components — ele depende de `cookies()` do Next.js, que não existe no browser.
+
+`createAdminClient()` usa `SUPABASE_SECRET_KEY` (service role) com `autoRefreshToken: false` e `persistSession: false` — nunca use no browser e nunca exponha a chave com prefixo `NEXT_PUBLIC_`.
 
 ## Schemas de validação (Zod v4)
 
@@ -177,6 +197,44 @@ Arquivo: `lib/validations/auth.ts`
 | `signUpSchema` | `email`, `password`, `passwordConfirmation` | senha ≥ 8 chars, confirmação deve coincidir |
 | `forgotPasswordSchema` | `email` | email válido |
 | `updatePasswordSchema` | `password`, `passwordConfirmation` | senha ≥ 8 chars, confirmação deve coincidir |
+
+### `lib/validations/admin.ts`
+
+| Schema | Campos | Regras |
+|--------|--------|--------|
+| `updateRoleSchema` | `userId`, `newRole` | `userId` deve ser UUID v4; `newRole` deve ser um dos valores de `USER_ROLES` (`SUPER_ADMIN`, `ADMIN`, `MODERATOR`, `USER`) |
+| `banUserSchema` | `userId` | `userId` deve ser UUID v4 |
+
+### `lib/validations/profile.ts`
+
+| Schema | Campos | Regras |
+|--------|--------|--------|
+| `profileSchema` | `displayName`, `avatarPhoto` | `displayName`: 3–32 chars com trim aplicado; `avatarPhoto`: string não-vazia |
+
+## Server Actions administrativas (`lib/actions/admin.ts`)
+
+Executadas no servidor com a Supabase Admin API via `createAdminClient()`. Cada função verifica internamente que o chamador tem role `ADMIN` ou `SUPER_ADMIN`.
+
+| Função | Descrição |
+|--------|-----------|
+| `listUsers(options?)` | Lista usuários paginados; suporta busca por nome/e-mail e filtro por status. Quando há filtro ativo, busca todas as páginas antes de filtrar. |
+| `getUserById(userId)` | Retorna dados de um usuário por ID. |
+| `banUser(userId)` | Define `ban_duration: "87600h"` e `status: "banido"` no `app_metadata`. Admins não podem banir Super Admins. |
+| `unbanUser(userId)` | Remove o ban (`ban_duration: "none"`) e restaura `status: "ativo"`. |
+| `updateUserRole(userId, newRole)` | Altera a role no `app_metadata`. Admins só podem promover usuários comuns para Moderador. |
+
+Todas retornam `{ status: "success" | "error", message: string, data?: T }`.
+
+## Server Actions de perfil (`lib/actions/profile.ts`)
+
+Executadas no servidor com o cliente padrão (`createClient()`). Requerem sessão ativa.
+
+| Função | Descrição |
+|--------|-----------|
+| `updateProfile(values)` | Atualiza `display_name` e `avatar_photo` em `user_metadata` via `auth.updateUser()`. Valida com `profileSchema`. |
+| `disconnectIdentity(identityId)` | Desvincula uma identidade OAuth do usuário via `auth.unlinkIdentity()`. |
+| `linkGoogleIdentity()` | Inicia vinculação de conta Google via `auth.linkIdentity({ provider: "google" })`. Retorna `{ status: "redirect", url }`. |
+| `linkDiscordIdentity()` | Inicia vinculação de conta Discord via `auth.linkIdentity({ provider: "discord" })`. Retorna `{ status: "redirect", url }`. |
 
 ## Erros de autenticação
 

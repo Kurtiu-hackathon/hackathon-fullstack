@@ -1,31 +1,22 @@
-import { createClient } from "@lib/supabase/server"
-import { ModeratorContent } from "./_components/moderator-content"
-import type { ModeratorSection } from "./_components/moderator-types"
+import { redirect } from "next/navigation"
 
-const VALID_SECTIONS = new Set<ModeratorSection>(["overview", "posts", "events"])
+const VALID = new Set(["overview", "posts", "events"])
 
 type ModeratorPageProps = {
-  searchParams: Promise<{ section?: string }>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
 }
 
 export default async function ModeratorPage({ searchParams }: ModeratorPageProps) {
-  const supabase = await createClient()
-  const { data } = await supabase.auth.getUser()
+  const params = await searchParams
+  const raw = Array.isArray(params.section) ? params.section[0] : params.section
+  const target = raw && VALID.has(raw) ? raw : "overview"
 
-  const fullName = data.user?.user_metadata?.full_name as string | undefined
-  const email = data.user?.email ?? ""
-  const userName = fullName ?? email.split("@")[0] ?? "Moderador"
-  const userInitials = userName
-    .split(" ")
-    .slice(0, 2)
-    .map((n) => n[0]?.toUpperCase() ?? "")
-    .join("")
+  const qs = new URLSearchParams()
+  for (const [key, val] of Object.entries(params)) {
+    if (key === "section") continue
+    if (Array.isArray(val)) val.forEach((v) => qs.append(key, v))
+    else if (val != null) qs.append(key, val as string)
+  }
 
-  const { section } = await searchParams
-  const initialSection: ModeratorSection =
-    section && VALID_SECTIONS.has(section as ModeratorSection)
-      ? (section as ModeratorSection)
-      : "overview"
-
-  return <ModeratorContent userName={userName} userInitials={userInitials} initialSection={initialSection} />
+  redirect(`/moderator/${target}${qs.size ? `?${qs}` : ""}`)
 }

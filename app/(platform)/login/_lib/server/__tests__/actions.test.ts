@@ -65,6 +65,7 @@ const validSignUpValues = {
 describe("signInWithEmail", () => {
   beforeEach(() => {
     mockSignInWithPassword.mockResolvedValue({ error: null });
+    mockGetClaims.mockResolvedValue({ data: null });
   });
 
   afterEach(() => {
@@ -120,6 +121,12 @@ describe("signInWithEmail", () => {
   it("ignora next inseguro e redireciona para /dashboard", async () => {
     await signInWithEmail(validSignInValues, "https://evil.com");
     expect(mockRedirect).toHaveBeenCalledWith("/dashboard");
+  });
+
+  it("redireciona para /super-admin quando role é SUPER_ADMIN", async () => {
+    mockGetClaims.mockResolvedValue({ data: { claims: { app_metadata: { role: "SUPER_ADMIN" } } } });
+    await signInWithEmail(validSignInValues);
+    expect(mockRedirect).toHaveBeenCalledWith("/super-admin");
   });
 });
 

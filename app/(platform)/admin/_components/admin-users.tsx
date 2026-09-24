@@ -2,6 +2,7 @@
 
 import { Download, Loader2, Search } from "lucide-react"
 
+import { UserActions } from "@components/user-manager/user-actions"
 import { Badge } from "@components/ui/badge"
 import { Blueprint } from "@components/ui/blueprint"
 import { Button } from "@components/ui/button"
@@ -47,6 +48,9 @@ export function AdminUsers() {
     hasMore,
     sentinelRef,
     reset,
+    refresh,
+    error,
+    retry,
   } = useUserList()
 
   return (
@@ -64,6 +68,8 @@ export function AdminUsers() {
           Exportar CSV · {users.length}
         </Button>
       </div>
+
+      {error && <div role="alert" className="flex items-center gap-3 text-sm text-destructive">{error}<Button variant="outline" onClick={retry} disabled={loading}>Tentar novamente</Button></div>}
 
       <Blueprint>
         <div className="flex flex-wrap items-center gap-2.5 border-b border-border p-3">
@@ -164,16 +170,7 @@ export function AdminUsers() {
                     <TableCell className="text-muted-foreground">{formatDate(user.joinedAt)}</TableCell>
                     <TableCell className="text-muted-foreground">{formatDate(user.lastLogin)}</TableCell>
                     <TableCell className="text-right">
-                      <div className="flex justify-end gap-1.5">
-                        <Button variant="outline" size="sm" className="h-7 px-2 text-[11px]">
-                          Ver
-                        </Button>
-                        {user.status !== "banido" && (
-                          <Button variant="outline" size="sm" className="h-7 px-2 text-[11px] text-destructive hover:bg-destructive/10">
-                            Banir
-                          </Button>
-                        )}
-                      </div>
+                      <UserActions user={user} onChanged={refresh} />
                     </TableCell>
                   </TableRow>
                 ))}
