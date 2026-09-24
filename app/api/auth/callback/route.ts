@@ -1,5 +1,6 @@
 ﻿import { NextResponse } from "next/server";
 
+import { getDashboardByRole } from "@lib/auth/dashboard-route";
 import { getSafeRedirectPath } from "@lib/auth/safe-redirect";
 import { createClient } from "@lib/supabase/server";
 
@@ -14,7 +15,15 @@ export async function GET(request: Request) {
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
-      return NextResponse.redirect(new URL(safeNext, requestUrl.origin));
+      if (safeNext !== "/dashboard") {
+        return NextResponse.redirect(new URL(safeNext, requestUrl.origin));
+      }
+
+      const { data } = await supabase.auth.getClaims();
+      const role = data?.claims?.app_metadata?.role as string | undefined;
+      return NextResponse.redirect(
+        new URL(getDashboardByRole(role), requestUrl.origin),
+      );
     }
   }
 

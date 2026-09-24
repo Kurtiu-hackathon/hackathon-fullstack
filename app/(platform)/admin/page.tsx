@@ -1,7 +1,14 @@
 import { createClient } from "@lib/supabase/server"
 import { AdminContent } from "./_components/admin-content"
+import type { AdminSection } from "./_components/admin-types"
 
-export default async function AdminPage() {
+const VALID_SECTIONS = new Set<AdminSection>(["overview", "users", "posts", "events", "finance"])
+
+type AdminPageProps = {
+  searchParams: Promise<{ section?: string }>
+}
+
+export default async function AdminPage({ searchParams }: AdminPageProps) {
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
 
@@ -14,5 +21,11 @@ export default async function AdminPage() {
     .map((n) => n[0]?.toUpperCase() ?? "")
     .join("")
 
-  return <AdminContent userName={userName} userInitials={userInitials} />
+  const { section } = await searchParams
+  const initialSection: AdminSection =
+    section && VALID_SECTIONS.has(section as AdminSection)
+      ? (section as AdminSection)
+      : "overview"
+
+  return <AdminContent userName={userName} userInitials={userInitials} initialSection={initialSection} />
 }

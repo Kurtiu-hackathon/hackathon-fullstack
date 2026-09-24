@@ -1,7 +1,14 @@
 import { createClient } from "@lib/supabase/server"
 import { SuperAdminContent } from "./_components/super-admin-content"
+import type { SuperAdminSection } from "./_components/super-admin-types"
 
-export default async function SuperAdminPage() {
+const VALID_SECTIONS = new Set<SuperAdminSection>(["overview", "users", "posts", "events", "finance", "audit"])
+
+type SuperAdminPageProps = {
+  searchParams: Promise<{ section?: string }>
+}
+
+export default async function SuperAdminPage({ searchParams }: SuperAdminPageProps) {
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
 
@@ -14,5 +21,11 @@ export default async function SuperAdminPage() {
     .map((n) => n[0]?.toUpperCase() ?? "")
     .join("")
 
-  return <SuperAdminContent userName={userName} userInitials={userInitials} />
+  const { section } = await searchParams
+  const initialSection: SuperAdminSection =
+    section && VALID_SECTIONS.has(section as SuperAdminSection)
+      ? (section as SuperAdminSection)
+      : "overview"
+
+  return <SuperAdminContent userName={userName} userInitials={userInitials} initialSection={initialSection} />
 }

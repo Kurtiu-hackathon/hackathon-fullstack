@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { Download, Search } from "lucide-react"
+import { Download, Loader2, Search } from "lucide-react"
 
 import { Badge } from "@components/ui/badge"
 import { Blueprint } from "@components/ui/blueprint"
@@ -15,21 +14,40 @@ import {
   TableHeader,
   TableRow,
 } from "@components/ui/table"
-import { PERMISSION_MATRIX, STATUS_USER_COLORS, USERS, type UserStatus } from "@lib/mock/admin/users"
+import { PERMISSION_MATRIX, STATUS_USER_COLORS } from "@lib/mock/admin/users"
+import { useUserList } from "@hooks/use-user-list"
+import type { UserStatus } from "@lib/actions/admin"
 
 const ALL_STATUSES: UserStatus[] = ["ativo", "suspenso", "banido", "pendente"]
 
-export function AdminUsers() {
-  const [query, setQuery] = useState("")
-  const [filter, setFilter] = useState<UserStatus | "todos">("todos")
+const ROLE_LABELS: Record<string, string> = {
+  USER: "Usuário",
+  MODERATOR: "Moderador",
+  ADMIN: "Admin",
+  SUPER_ADMIN: "Super Admin",
+}
 
-  const filtered = USERS.filter((u) => {
-    const matchesQuery =
-      u.name.toLowerCase().includes(query.toLowerCase()) ||
-      u.email.toLowerCase().includes(query.toLowerCase())
-    const matchesFilter = filter === "todos" || u.status === filter
-    return matchesQuery && matchesFilter
-  })
+function formatDate(iso: string | undefined | null): string {
+  if (!iso) return "—"
+  const d = new Date(iso)
+  const months = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
+  return `${String(d.getDate()).padStart(2, "0")} ${months[d.getMonth()]} ${d.getFullYear()}`
+}
+
+export function AdminUsers() {
+  const {
+    query,
+    setQuery,
+    filter,
+    setFilter,
+    users,
+    total,
+    loading,
+    initialLoading,
+    hasMore,
+    sentinelRef,
+    reset,
+  } = useUserList()
 
   return (
     <div className="flex flex-col gap-5">
@@ -43,7 +61,7 @@ export function AdminUsers() {
           className="flex items-center gap-2 font-heading uppercase tracking-[0.04em]"
         >
           <Download size={14} strokeWidth={1.5} aria-hidden="true" />
-          Exportar CSV · {filtered.length}
+          Exportar CSV · {users.length}
         </Button>
       </div>
 
@@ -70,23 +88,19 @@ export function AdminUsers() {
               onClick={() => setFilter("todos")}
               className="font-heading text-[11px] uppercase tracking-[0.06em]"
             >
-              Todos{" "}
-              <span className="opacity-60">{USERS.length}</span>
+              Todos <span className="opacity-60">{total}</span>
             </Button>
-            {ALL_STATUSES.map((s) => {
-              const count = USERS.filter((u) => u.status === s).length
-              return (
-                <Button
-                  key={s}
-                  variant={filter === s ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setFilter(s)}
-                  className="font-heading text-[11px] uppercase tracking-[0.06em]"
-                >
-                  {s} <span className="opacity-60">{count}</span>
-                </Button>
-              )
-            })}
+            {ALL_STATUSES.map((s) => (
+              <Button
+                key={s}
+                variant={filter === s ? "default" : "outline"}
+                size="sm"
+                onClick={() => setFilter(s)}
+                className="font-heading text-[11px] uppercase tracking-[0.06em]"
+              >
+                {s}
+              </Button>
+            ))}
           </div>
         </div>
 
@@ -103,13 +117,26 @@ export function AdminUsers() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.length === 0 ? (
+            {initialLoading ? (
+              Array.from({ length: 5 }, (_, i) => (
+                <TableRow key={i}>
+                  {Array.from({ length: 7 }, (_, j) => (
+                    <TableCell key={j}>
+                      <div
+                        className="h-3.5 animate-pulse rounded-sm bg-muted"
+                        style={{ width: `${45 + ((i * 7 + j) * 17) % 40}%` }}
+                      />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
+            ) : users.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={7} className="py-9 text-center text-[13.5px] text-muted-foreground">
                   Nada encontrado para &ldquo;{query}&rdquo;.{" "}
                   <button
                     type="button"
-                    onClick={() => { setQuery(""); setFilter("todos") }}
+                    onClick={reset}
                     className="text-primary underline-offset-2 hover:underline"
                   >
                     Limpar filtros
@@ -117,41 +144,54 @@ export function AdminUsers() {
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((user) => (
-                <TableRow key={user.id}>
-                  <TableCell className="font-medium">{user.name}</TableCell>
-                  <TableCell className="text-muted-foreground">{user.email}</TableCell>
-                  <TableCell>
-                    <Badge variant="secondary" className="font-heading text-[10px] uppercase tracking-[0.08em]">
-                      {user.role}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={`inline-flex items-center border px-2 py-0.5 text-[11px] font-medium ${STATUS_USER_COLORS[user.status]}`}
-                    >
-                      {user.status}
-                    </span>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground">{user.joinedAt}</TableCell>
-                  <TableCell className="text-muted-foreground">{user.lastLogin}</TableCell>
-                  <TableCell className="text-right">
-                    <div className="flex justify-end gap-1.5">
-                      <Button variant="outline" size="sm" className="h-7 px-2 text-[11px]">
-                        Ver
-                      </Button>
-                      {user.status !== "banido" && (
-                        <Button variant="outline" size="sm" className="h-7 px-2 text-[11px] text-destructive hover:bg-destructive/10">
-                          Banir
+              <>
+                {users.map((user) => (
+                  <TableRow key={user.id}>
+                    <TableCell className="font-medium">{user.name || "—"}</TableCell>
+                    <TableCell className="text-muted-foreground">{user.email}</TableCell>
+                    <TableCell>
+                      <Badge variant="secondary" className="font-heading text-[10px] uppercase tracking-[0.08em]">
+                        {ROLE_LABELS[user.role] ?? user.role}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-flex items-center border px-2 py-0.5 text-[11px] font-medium ${STATUS_USER_COLORS[user.status]}`}
+                      >
+                        {user.status}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">{formatDate(user.joinedAt)}</TableCell>
+                    <TableCell className="text-muted-foreground">{formatDate(user.lastLogin)}</TableCell>
+                    <TableCell className="text-right">
+                      <div className="flex justify-end gap-1.5">
+                        <Button variant="outline" size="sm" className="h-7 px-2 text-[11px]">
+                          Ver
                         </Button>
-                      )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))
+                        {user.status !== "banido" && (
+                          <Button variant="outline" size="sm" className="h-7 px-2 text-[11px] text-destructive hover:bg-destructive/10">
+                            Banir
+                          </Button>
+                        )}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ))}
+                {loading && (
+                  <TableRow>
+                    <TableCell colSpan={7} className="py-3 text-center">
+                      <Loader2 size={16} strokeWidth={1.5} className="mx-auto animate-spin text-muted-foreground" />
+                    </TableCell>
+                  </TableRow>
+                )}
+              </>
             )}
           </TableBody>
         </Table>
+
+        {hasMore && (
+          <div ref={sentinelRef} className="h-1" aria-hidden="true" />
+        )}
       </Blueprint>
 
       <Blueprint className="p-[18px]">

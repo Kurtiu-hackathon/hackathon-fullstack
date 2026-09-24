@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+import { getDashboardByRole } from "@lib/auth/dashboard-route";
 import { getAuthErrorMessage } from "@lib/auth/error-message";
 import { getSafeRedirectPath, buildAuthCallbackUrl } from "@lib/auth/safe-redirect";
 import { createClient } from "@lib/supabase/server";
@@ -75,7 +76,15 @@ export async function signInWithEmail(
     return { status: "error", message: getAuthErrorMessage(error) };
   }
 
-  redirect(getSafeRedirectPath(next));
+  const safeNext = getSafeRedirectPath(next);
+
+  if (safeNext !== "/dashboard") {
+    redirect(safeNext);
+  }
+
+  const { data: claimsData } = await supabase.auth.getClaims();
+  const role = claimsData?.claims?.app_metadata?.role as string | undefined;
+  redirect(getDashboardByRole(role));
 }
 
 export async function signUpWithEmail(

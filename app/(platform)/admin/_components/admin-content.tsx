@@ -15,11 +15,12 @@ import { SECTION_TITLES, type AdminSection } from "./admin-types"
 type AdminContentProps = {
   userName: string
   userInitials: string
+  initialSection?: AdminSection
 }
 
-export function AdminContent({ userName, userInitials }: AdminContentProps) {
+export function AdminContent({ userName, userInitials, initialSection = "overview" }: AdminContentProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState<AdminSection>("overview")
+  const [activeSection, setActiveSection] = useState<AdminSection>(initialSection)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const isMobile = useIsMobile()
 

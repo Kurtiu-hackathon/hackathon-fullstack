@@ -1,6 +1,8 @@
 "use client"
 
 import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { LogOut, X } from "lucide-react"
 
 import { signOutAction } from "@lib/server/auth"
@@ -23,8 +25,8 @@ type SuperAdminSidebarProps = {
   open: boolean
   isMobile: boolean
   onClose: () => void
-  activeSection: SuperAdminSection
-  onNavigate: (section: SuperAdminSection) => void
+  activeSection?: SuperAdminSection
+  onNavigate?: (section: SuperAdminSection) => void
   userInitials: string
   userName: string
 }
@@ -37,8 +39,8 @@ function NavGroup({
 }: {
   title: string
   items: NavItem[]
-  activeSection: SuperAdminSection
-  onNavigate: (s: SuperAdminSection) => void
+  activeSection?: SuperAdminSection
+  onNavigate?: (s: SuperAdminSection) => void
 }) {
   return (
     <div className="flex flex-col gap-px">
@@ -49,7 +51,7 @@ function NavGroup({
         <button
           key={item.id}
           type="button"
-          onClick={() => onNavigate(item.id)}
+          onClick={() => onNavigate?.(item.id)}
           aria-current={activeSection === item.id ? "page" : undefined}
           className={cn(
             "flex w-full items-center justify-between px-2 py-[10px] text-left text-[13.5px] transition-colors",
@@ -79,6 +81,8 @@ export function SuperAdminSidebar({
   userInitials,
   userName,
 }: SuperAdminSidebarProps) {
+  const pathname = usePathname()
+
   return (
     <>
       {open && (
@@ -144,6 +148,23 @@ export function SuperAdminSidebar({
             activeSection={activeSection}
             onNavigate={onNavigate}
           />
+          <div className="flex flex-col gap-px">
+            <p className="px-2 pb-1.5 text-[9.5px] font-semibold uppercase tracking-[0.2em] text-[#59647a]">
+              Conta
+            </p>
+            <Link
+              href="/profile"
+              aria-current={pathname === "/profile" ? "page" : undefined}
+              className={cn(
+                "flex w-full items-center px-2 py-[10px] text-[13.5px] no-underline transition-colors",
+                pathname === "/profile"
+                  ? "bg-primary text-white"
+                  : "text-white/75 hover:bg-white/10 hover:text-white",
+              )}
+            >
+              Meu Perfil
+            </Link>
+          </div>
         </nav>
 
         <div className="mt-auto">

@@ -1,7 +1,14 @@
 import { createClient } from "@lib/supabase/server"
 import { ModeratorContent } from "./_components/moderator-content"
+import type { ModeratorSection } from "./_components/moderator-types"
 
-export default async function ModeratorPage() {
+const VALID_SECTIONS = new Set<ModeratorSection>(["overview", "posts", "events"])
+
+type ModeratorPageProps = {
+  searchParams: Promise<{ section?: string }>
+}
+
+export default async function ModeratorPage({ searchParams }: ModeratorPageProps) {
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
 
@@ -14,5 +21,11 @@ export default async function ModeratorPage() {
     .map((n) => n[0]?.toUpperCase() ?? "")
     .join("")
 
-  return <ModeratorContent userName={userName} userInitials={userInitials} />
+  const { section } = await searchParams
+  const initialSection: ModeratorSection =
+    section && VALID_SECTIONS.has(section as ModeratorSection)
+      ? (section as ModeratorSection)
+      : "overview"
+
+  return <ModeratorContent userName={userName} userInitials={userInitials} initialSection={initialSection} />
 }

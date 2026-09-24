@@ -16,11 +16,12 @@ import { SuperAdminUsers } from "./super-admin-users"
 type SuperAdminContentProps = {
   userName: string
   userInitials: string
+  initialSection?: SuperAdminSection
 }
 
-export function SuperAdminContent({ userName, userInitials }: SuperAdminContentProps) {
+export function SuperAdminContent({ userName, userInitials, initialSection = "overview" }: SuperAdminContentProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState<SuperAdminSection>("overview")
+  const [activeSection, setActiveSection] = useState<SuperAdminSection>(initialSection)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const isMobile = useIsMobile()
 

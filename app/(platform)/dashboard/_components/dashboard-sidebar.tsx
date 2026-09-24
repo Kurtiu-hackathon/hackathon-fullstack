@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { LogOut, X } from "lucide-react"
 
 import { signOutAction } from "@lib/server/auth"
@@ -18,8 +19,8 @@ type DashboardSidebarProps = {
   open: boolean
   isMobile: boolean
   onClose: () => void
-  activeSection: ActiveSection
-  onNavigate: (section: ActiveSection) => void
+  activeSection?: ActiveSection
+  onNavigate?: (section: ActiveSection) => void
 }
 
 const NAV_PAINEL: { id: ActiveSection; label: string }[] = [
@@ -36,6 +37,8 @@ export function DashboardSidebar({
   activeSection,
   onNavigate,
 }: DashboardSidebarProps) {
+  const pathname = usePathname()
+
   return (
     <>
       {open && (
@@ -120,7 +123,7 @@ export function DashboardSidebar({
                 <button
                   key={id}
                   type="button"
-                  onClick={() => onNavigate(id)}
+                  onClick={() => onNavigate?.(id)}
                   aria-current={activeSection === id ? "page" : undefined}
                   className={cn(
                     "block w-full px-3 py-[11px] text-left text-[14px] transition-colors",
@@ -148,6 +151,25 @@ export function DashboardSidebar({
                 Minha contribuição
                 <span className="sr-only"> (abre em nova janela)</span>
               </a>
+            </div>
+
+            <p className="mb-2.5 mt-[18px] text-[10px] font-semibold uppercase tracking-[0.2em] text-background/55">
+              Conta
+            </p>
+
+            <div className="space-y-px">
+              <Link
+                href="/profile"
+                aria-current={pathname === "/profile" ? "page" : undefined}
+                className={cn(
+                  "block px-3 py-[11px] text-[14px] no-underline transition-colors",
+                  pathname === "/profile"
+                    ? "bg-primary text-primary-foreground"
+                    : "text-background/75 hover:bg-primary hover:text-primary-foreground",
+                )}
+              >
+                Meu Perfil
+              </Link>
             </div>
           </nav>
 

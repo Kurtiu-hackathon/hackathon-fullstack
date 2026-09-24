@@ -13,11 +13,12 @@ import { SECTION_TITLES, type ModeratorSection } from "./moderator-types"
 type ModeratorContentProps = {
   userName: string
   userInitials: string
+  initialSection?: ModeratorSection
 }
 
-export function ModeratorContent({ userName, userInitials }: ModeratorContentProps) {
+export function ModeratorContent({ userName, userInitials, initialSection = "overview" }: ModeratorContentProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState<ModeratorSection>("overview")
+  const [activeSection, setActiveSection] = useState<ModeratorSection>(initialSection)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const isMobile = useIsMobile()
 

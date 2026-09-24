@@ -11,9 +11,13 @@ import { DashboardAwards } from "./dashboard-awards"
 import { DashboardForum } from "./dashboard-forum"
 import { SECTION_TITLES, type ActiveSection } from "./dashboard-types"
 
-export function DashboardContent() {
+type DashboardContentProps = {
+  initialSection?: ActiveSection
+}
+
+export function DashboardContent({ initialSection = "overview" }: DashboardContentProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState<ActiveSection>("overview")
+  const [activeSection, setActiveSection] = useState<ActiveSection>(initialSection)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const isMobile = useIsMobile()
 
