@@ -1,10 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import { X } from "lucide-react"
+import { LogOut, X } from "lucide-react"
 
 import { signOutAction } from "@lib/server/auth"
 import { cn } from "cn"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@components/ui/dropdown-menu"
 import {
   NAV_FINANCEIRO,
   NAV_PLATAFORMA,
@@ -133,27 +139,26 @@ export function AdminSidebar({
           />
         </nav>
 
-        <div className="mt-auto flex flex-col gap-3">
-          <div className="flex items-center gap-2.5 px-1">
-            <div className="flex h-[30px] w-[30px] shrink-0 items-center justify-center bg-primary font-heading text-[12px] font-bold text-white">
-              {userInitials}
-            </div>
-            <div className="min-w-0">
-              <p className="font-heading text-[13px] font-semibold">{userName}</p>
-              <p className="text-[10px] uppercase tracking-[0.12em] text-[#8eb2fb]">
-                Admin
-              </p>
-            </div>
-          </div>
-
-          <form action={signOutAction}>
-            <button
-              type="submit"
-              className="px-1 text-[12px] text-[#8090a8] transition-colors hover:text-primary"
-            >
-              Sair do console
-            </button>
-          </form>
+        <div className="mt-auto">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex w-full items-center gap-2.5 px-1 py-2 text-left transition-colors hover:bg-white/10">
+              <div className="flex h-[30px] w-[30px] shrink-0 items-center justify-center bg-primary font-heading text-[12px] font-bold text-white">
+                {userInitials}
+              </div>
+              <div className="min-w-0">
+                <p className="font-heading text-[13px] font-semibold">{userName}</p>
+                <p className="text-[10px] uppercase tracking-[0.12em] text-[#8eb2fb]">
+                  Admin
+                </p>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="top" className="w-48">
+              <DropdownMenuItem onClick={() => signOutAction()}>
+                <LogOut size={14} strokeWidth={1.5} />
+                Sair do console
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </aside>
     </>

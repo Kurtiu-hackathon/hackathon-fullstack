@@ -1,9 +1,17 @@
+"use client"
+
 import Image from "next/image"
 import Link from "next/link"
-import { X } from "lucide-react"
+import { LogOut, X } from "lucide-react"
 
 import { signOutAction } from "@lib/server/auth"
 import { cn } from "cn"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@components/ui/dropdown-menu"
 import type { ActiveSection } from "./dashboard-types"
 
 type DashboardSidebarProps = {
@@ -77,22 +85,30 @@ export function DashboardSidebar({
             </button>
           </div>
 
-          <div className="mt-10 border border-background/15 p-5">
-            <div className="flex items-center gap-4">
-              <div className="flex h-16 w-16 shrink-0 items-center justify-center bg-primary font-heading text-xl font-semibold text-primary-foreground">
-                ML
-              </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="mt-10 w-full border border-background/15 p-5 text-left transition-colors hover:border-primary/40">
+              <div className="flex items-center gap-4">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center bg-primary font-heading text-xl font-semibold text-primary-foreground">
+                  ML
+                </div>
 
-              <div>
-                <p className="font-heading font-semibold text-background">
-                  Marina Lopes
-                </p>
-                <p className="mt-1 font-heading text-xs font-semibold uppercase tracking-[0.14em] text-primary">
-                  Apoiadora · R$ 25
-                </p>
+                <div>
+                  <p className="font-heading font-semibold text-background">
+                    Marina Lopes
+                  </p>
+                  <p className="mt-1 font-heading text-xs font-semibold uppercase tracking-[0.14em] text-primary">
+                    Apoiadora · R$ 25
+                  </p>
+                </div>
               </div>
-            </div>
-          </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="top" className="w-56">
+              <DropdownMenuItem onClick={() => signOutAction()}>
+                <LogOut size={14} strokeWidth={1.5} />
+                Sair da conta
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <nav className="mt-10" aria-label="Navegação do painel">
             <p className="mb-2.5 text-[10px] font-semibold uppercase tracking-[0.2em] text-background/55">
@@ -156,15 +172,6 @@ export function DashboardSidebar({
                 R$ 3.480 de R$ 5.000
               </p>
             </div>
-
-            <form action={signOutAction}>
-              <button
-                type="submit"
-                className="mt-6 text-[12.5px] text-background/60 transition-colors hover:text-primary"
-              >
-                Sair da conta
-              </button>
-            </form>
           </div>
         </div>
       </aside>
