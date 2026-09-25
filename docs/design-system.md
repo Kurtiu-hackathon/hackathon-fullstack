@@ -91,6 +91,53 @@ import { Duotone } from "@/components/ui/duotone";
 <Duotone src="/foto.jpg" alt="Descrição" />
 ```
 
+## Componentes comuns (`components/common/`)
+
+Compostos reutilizáveis promovidos de features — não devem ser editados para ajuste de tema (isso vai em `components/ui/`).
+
+### `PlatformSidebar`
+
+Sidebar unificada usada por todos os shells da plataforma. Aceita `variant: "dashboard" | "console"` para ajustar tamanho do logo e texto do botão de logout. Renderiza grupos de navegação (`NavGroup[]`), avatar do usuário com dropdown de logout e, opcionalmente, um `footerWidget` (ex.: widget de meta mensal).
+
+```tsx
+import { PlatformSidebar, type NavGroup } from "@components/common/platform-sidebar"
+```
+
+### `DashboardShell`
+
+Layout completo do painel do apoiador: `SidebarProvider` + `PlatformSidebar` (variant `"dashboard"`, sidebar 18rem) + header sticky com título por segmento da URL + área de conteúdo. Usa `DASHBOARD_NAV` fixo de `nav-configs.ts`. Lê o cookie `sidebar_state` para manter o estado aberto/fechado entre recargas.
+
+```tsx
+import { DashboardShell } from "@components/common/dashboard-shell"
+
+<DashboardShell user={{ name, initials }} defaultOpen={defaultOpen}>
+  {children}
+</DashboardShell>
+```
+
+### `ConsoleShell`
+
+Layout para consoles administrativos (admin, super-admin, moderador). Variante `"console"` do `PlatformSidebar` com sidebar 16rem, fundo `--navy` e texto branco. Recebe `navGroups` e `roleLabel` como props (definidos em `nav-configs.ts`). O header exibe a data/hora atual e um link de retorno ao painel do apoiador.
+
+```tsx
+import { ConsoleShell } from "@components/common/console-shell"
+
+<ConsoleShell navGroups={ADMIN_NAV} roleLabel="Admin" user={{ name, initials }}>
+  {children}
+</ConsoleShell>
+```
+
+### `nav-configs.ts`
+
+Configurações de navegação para cada role, exportadas como constantes:
+
+| Constante | Usado em |
+|-----------|----------|
+| `DASHBOARD_NAV` | `DashboardShell` (fixo) |
+| `ADMIN_NAV` | `AdminLayout`, `ProfileLayout` com role `ADMIN` |
+| `SUPER_ADMIN_NAV` | `SuperAdminLayout`, `ProfileLayout` com role `SUPER_ADMIN` |
+| `MODERATOR_NAV` | `ModeratorLayout`, `ProfileLayout` com role `MODERATOR` |
+
 ## Preview dos componentes
 
 Acesse `/dev/design-system` com o servidor em modo desenvolvimento para visualizar todos os componentes com suas variantes.

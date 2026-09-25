@@ -7,9 +7,27 @@
 | `/` | Page | Pública | `app/(landing-page)/page.tsx` |
 | `/login` | Page | Pública | `app/(platform)/login/page.tsx` |
 | `/dashboard` | Page | Auth obrigatória | `app/(platform)/dashboard/page.tsx` |
+| `/dashboard/overview` | Page | Auth obrigatória | `app/(platform)/dashboard/overview/page.tsx` |
+| `/dashboard/events` | Page | Auth obrigatória | `app/(platform)/dashboard/events/page.tsx` |
+| `/dashboard/awards` | Page | Auth obrigatória | `app/(platform)/dashboard/awards/page.tsx` |
+| `/dashboard/forum` | Page | Auth obrigatória | `app/(platform)/dashboard/forum/page.tsx` |
 | `/admin` | Page | Role `ADMIN` | `app/(platform)/admin/page.tsx` |
+| `/admin/overview` | Page | Role `ADMIN` | `app/(platform)/admin/overview/page.tsx` |
+| `/admin/users` | Page | Role `ADMIN` | `app/(platform)/admin/users/page.tsx` |
+| `/admin/posts` | Page | Role `ADMIN` | `app/(platform)/admin/posts/page.tsx` |
+| `/admin/events` | Page | Role `ADMIN` | `app/(platform)/admin/events/page.tsx` |
+| `/admin/finance` | Page | Role `ADMIN` | `app/(platform)/admin/finance/page.tsx` |
 | `/super-admin` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/page.tsx` |
+| `/super-admin/overview` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/overview/page.tsx` |
+| `/super-admin/users` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/users/page.tsx` |
+| `/super-admin/posts` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/posts/page.tsx` |
+| `/super-admin/events` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/events/page.tsx` |
+| `/super-admin/finance` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/finance/page.tsx` |
+| `/super-admin/audit` | Page | Role `SUPER_ADMIN` | `app/(platform)/super-admin/audit/page.tsx` |
 | `/moderator` | Page | Role `MODERATOR` | `app/(platform)/moderator/page.tsx` |
+| `/moderator/overview` | Page | Role `MODERATOR` | `app/(platform)/moderator/overview/page.tsx` |
+| `/moderator/posts` | Page | Role `MODERATOR` | `app/(platform)/moderator/posts/page.tsx` |
+| `/moderator/events` | Page | Role `MODERATOR` | `app/(platform)/moderator/events/page.tsx` |
 | `/profile` | Page | Auth obrigatória | `app/(platform)/profile/page.tsx` |
 | `/api/auth/callback` | Route Handler | Pública | `app/api/auth/callback/route.ts` |
 | `/api/auth/confirm` | Route Handler | Pública | `app/api/auth/confirm/route.ts` |
@@ -77,7 +95,7 @@ Layout simples; sem autenticação. Contém a landing page pública com seções
 
 ### `(platform)`
 
-Rotas do produto. Subdiretório `login/` é público; `dashboard/` é protegido por `DashboardLayout` (dupla verificação junto com `proxy.ts`); `admin/`, `super-admin/` e `moderator/` são protegidos por role; `profile/` é protegido por auth mas acessível a qualquer role autenticada — ver `docs/auth.md#proteção-de-rotas-por-role`.
+Rotas do produto. Subdiretório `login/` é público; `dashboard/` é protegido por `DashboardLayout` (dupla verificação junto com `proxy.ts`); `admin/`, `super-admin/` e `moderator/` são protegidos por role; `profile/` é protegido por auth mas acessível a qualquer role autenticada e renderiza o shell adequado à role do usuário — ver `docs/auth.md#proteção-de-rotas-por-role`.
 
 ### `dev/`
 

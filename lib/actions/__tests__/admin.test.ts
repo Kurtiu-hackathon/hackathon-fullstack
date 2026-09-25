@@ -64,3 +64,38 @@ it("rejeita desbanimento quando usuário não está banido", async () => {
   expect(await unbanUser(id)).toMatchObject({ status: "error" })
   expect(mocks.update).not.toHaveBeenCalled()
 })
+it("rejeita banimento com userId inválido (não UUID)", async () => {
+  expect(await banUser("not-a-uuid")).toMatchObject({ status: "error", message: "ID de usuário inválido." })
+  expect(mocks.update).not.toHaveBeenCalled()
+})
+it("rejeita banimento quando ADMIN tenta banir SUPER_ADMIN", async () => {
+  mocks.claims.mockResolvedValue({ data: { claims: { sub: "caller", app_metadata: { role: "ADMIN" } } } })
+  mocks.get.mockResolvedValueOnce({ data: { user: { ...target, app_metadata: { ...target.app_metadata, role: "SUPER_ADMIN" } } }, error: null })
+  expect(await banUser(id)).toMatchObject({ status: "error", message: "Admins não podem banir Super Admins." })
+  expect(mocks.update).not.toHaveBeenCalled()
+})
+it("rejeita banimento quando usuário já está banido", async () => {
+  mocks.get.mockResolvedValueOnce({ data: { user: { ...target, app_metadata: { ...target.app_metadata, status: "banido" } } }, error: null })
+  expect(await banUser(id)).toMatchObject({ status: "error", message: "Este usuário já está banido." })
+  expect(mocks.update).not.toHaveBeenCalled()
+})
+it("retorna erro quando updateUserById falha ao banir", async () => {
+  mocks.update.mockResolvedValueOnce({ error: { message: "db error" } })
+  expect(await banUser(id)).toMatchObject({ status: "error", message: "Não foi possível banir o usuário." })
+})
+it("rejeita desbanimento quando ADMIN tenta desbanir SUPER_ADMIN", async () => {
+  mocks.claims.mockResolvedValue({ data: { claims: { sub: "caller", app_metadata: { role: "ADMIN" } } } })
+  mocks.get.mockResolvedValueOnce({ data: { user: { ...target, app_metadata: { ...target.app_metadata, role: "SUPER_ADMIN", status: "banido" } } }, error: null })
+  expect(await unbanUser(id)).toMatchObject({ status: "error", message: "Admins não podem modificar Super Admins." })
+  expect(mocks.update).not.toHaveBeenCalled()
+})
+it("rejeita promoção inválida quando ADMIN tenta promover não-USER ou para não-MODERATOR", async () => {
+  mocks.claims.mockResolvedValue({ data: { claims: { sub: "caller", app_metadata: { role: "ADMIN" } } } })
+  expect(await updateUserRole(id, "ADMIN")).toMatchObject({ status: "error", message: "Admins só podem promover usuários comuns para Moderador." })
+  expect(mocks.update).not.toHaveBeenCalled()
+})
+it("rejeita alteração de role quando usuário já possui o papel alvo", async () => {
+  mocks.get.mockResolvedValueOnce({ data: { user: { ...target, app_metadata: { ...target.app_metadata, role: "ADMIN" } } }, error: null })
+  expect(await updateUserRole(id, "ADMIN")).toMatchObject({ status: "error", message: "O usuário já possui este papel." })
+  expect(mocks.update).not.toHaveBeenCalled()
+})

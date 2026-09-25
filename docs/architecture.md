@@ -49,6 +49,19 @@ Rotas (app/)
 
 A regra de promoção está documentada em `CLAUDE.md`: um componente nasce na feature; após a terceira reutilização em features diferentes, sobe para `components/common/`.
 
+### Shells de layout (`components/common/`)
+
+Os layouts de plataforma são compostos por dois shells reutilizáveis:
+
+| Shell | Arquivo | Usado em |
+|-------|---------|----------|
+| `DashboardShell` | `dashboard-shell.tsx` | `/dashboard`, `/profile` (usuários sem role) |
+| `ConsoleShell` | `console-shell.tsx` | `/admin`, `/super-admin`, `/moderator`, `/profile` (roles admin/mod) |
+
+Ambos usam `PlatformSidebar` (`platform-sidebar.tsx`) internamente. Os itens de navegação são definidos em `nav-configs.ts` como constantes por role (`DASHBOARD_NAV`, `ADMIN_NAV`, `SUPER_ADMIN_NAV`, `MODERATOR_NAV`).
+
+O cookie `sidebar_state` (escrito pelo `SidebarProvider` do shadcn) é lido server-side em cada layout para preservar o estado aberto/fechado da sidebar entre navegações.
+
 ## Next.js 16 — diferenças importantes
 
 **`proxy.ts` em vez de `middleware.ts`**

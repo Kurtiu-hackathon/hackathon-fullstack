@@ -138,6 +138,19 @@ O arquivo `proxy.ts` (equivalente ao `middleware.ts` do Next.js 16) intercepta t
 
 O layout `app/(platform)/dashboard/layout.tsx` faz uma segunda verificação server-side via `supabase.auth.getClaims()`. Esta redundância garante proteção mesmo que o proxy seja contornado.
 
+### `ProfileLayout` — shell adaptado à role
+
+O layout `app/(platform)/profile/layout.tsx` requer sessão ativa e renderiza o shell correto para a role do usuário:
+
+| Role | Shell renderizado |
+|------|------------------|
+| `ADMIN` | `ConsoleShell` com `ADMIN_NAV` |
+| `SUPER_ADMIN` | `ConsoleShell` com `SUPER_ADMIN_NAV` |
+| `MODERATOR` | `ConsoleShell` com `MODERATOR_NAV` |
+| _(sem role)_ | `DashboardShell` |
+
+Isso garante que a página de perfil use a mesma navegação lateral que o console ou painel do usuário.
+
 ## Estado de usuário no cliente
 
 `UserProvider` (`lib/auth/user-provider.tsx`) é montado no root layout (`app/layout.tsx`):
